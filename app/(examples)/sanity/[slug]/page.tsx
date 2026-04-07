@@ -7,13 +7,15 @@ import type { Article } from '@/integrations/sanity/sanity.types'
 import { generateSanityMetadata } from '@/utils/metadata'
 import { SanityArticle } from './_components/article'
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
-  // Use client directly for build-time data fetching instead of sanityFetch
-  if (!client) return []
+  if (!client) return [{ slug: '_placeholder' }]
 
   const data = await client.fetch(allArticlesQuery)
 
-  if (!(data && Array.isArray(data))) return []
+  if (!(data && Array.isArray(data)) || data.length === 0)
+    return [{ slug: '_placeholder' }]
 
   return data.map((article) => ({ slug: article.slug?.current ?? '' }))
 }
@@ -24,6 +26,9 @@ export default async function SanityArticlePage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+
+  if (slug === '_placeholder') return null
+
   const { data } = await sanityFetch({
     query: articleQuery,
     params: { slug },
@@ -47,6 +52,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+
+  if (slug === '_placeholder') return
+
   const { data } = await sanityFetch({
     query: articleQuery,
     params: { slug },
