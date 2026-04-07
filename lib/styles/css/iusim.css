@@ -1,0 +1,171 @@
+/* ============================================================
+   IUSIM — Design System Extension
+   Quiet Luxury | Engenharia Visual | Dark Monochrome
+   ============================================================ */
+
+@theme {
+  --font-serif: var(--next-font-serif), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--next-font-sans), 'Inter', system-ui, sans-serif;
+
+  /* Iusim Midnight Palette */
+  --color-midnight: #0a0a0a;
+  --color-midnight-soft: #131313;
+  --color-surface: #1b1b1b;
+  --color-surface-high: #272727;
+  --color-surface-highest: #363636;
+  --color-ivory: #f5f0ea;
+  --color-ivory-dim: rgba(245, 240, 234, 0.82);
+  --color-ivory-muted: rgba(245, 240, 234, 0.45);
+  --color-border: rgba(245, 240, 234, 0.1);
+  --color-border-strong: rgba(245, 240, 234, 0.22);
+}
+
+/* ── Spotlight Animation (Aceternity exact) ──────────────── */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s cubic-bezier(0.19, 1, 0.22, 1) 0.75s 1 forwards;
+  opacity: 0;
+}
+
+/* ── Scroll Line Animation ───────────────────────────────── */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* ── Dotted Grid Pattern ─────────────────────────────────── */
+.dotted-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(245, 240, 234, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* ── Typography Utilities ────────────────────────────────── */
+.font-display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  line-height: 0.93;
+}
+
+.font-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Architectural Data Cell ─────────────────────────────── */
+.data-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 24px;
+  background-color: var(--color-surface);
+  min-height: 140px;
+}
+
+.data-cell-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+  text-box-trim: both;
+  text-box-edge: cap alphabetic;
+}
+
+.data-cell-value {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 0.9;
+  color: var(--color-ivory);
+}
+
+/* ── Ghost CTA Button ────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 36px;
+  background-color: var(--color-ivory);
+  color: var(--color-midnight);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-ivory-dim);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 35px;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-ivory-dim);
+  background-color: rgba(245, 240, 234, 0.04);
+}
+
+/* ── Section Spacing ─────────────────────────────────────── */
+.section-padding {
+  padding-top: clamp(80px, 10vw, 160px);
+  padding-bottom: clamp(80px, 10vw, 160px);
+}
+
+/* ── Reveal Animation ────────────────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 0.9s cubic-bezier(0.19, 1, 0.22, 1) both;
+}

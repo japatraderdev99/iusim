@@ -1,0 +1,108 @@
+.root {
+  background-color: var(--color-midnight-soft);
+  padding-top: clamp(80px, 10vw, 160px);
+  padding-bottom: clamp(80px, 10vw, 160px);
+}
+
+.inner {
+  padding-left: var(--safe);
+  padding-right: var(--safe);
+}
+
+/* Header */
+.header {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.sectionTag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--color-ivory);
+}
+
+/* Tier grid — 4 columns at desktop, 1 col mobile */
+.tiersGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background-color: var(--color-border);
+  margin-bottom: clamp(36px, 4vw, 56px);
+
+  @media (--desktop) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tierCard {
+  background-color: var(--color-midnight-soft);
+  padding: clamp(28px, 3.5vw, 48px) clamp(20px, 2.5vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: clamp(200px, 24vw, 300px);
+  transition: background-color 0.4s ease;
+  cursor: default;
+
+  @media (--hover) {
+    &:hover {
+      background-color: var(--color-surface);
+    }
+  }
+}
+
+.tierCode {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+}
+
+.tierName {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(32px, 3.5vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--color-ivory);
+  margin-top: auto;
+}
+
+.tierDesc {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--color-ivory-dim);
+}
+
+/* Footer note */
+.footerNote {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerNoteLine {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--color-ivory-muted);
+  line-height: 1.5;
+}
