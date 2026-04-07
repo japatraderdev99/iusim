@@ -6,6 +6,12 @@
   min-height: 100dvh;
   overflow: hidden;
   background-color: var(--color-midnight);
+
+  @media (max-width: 799px) {
+    justify-content: center;
+    padding-top: calc(var(--header-height) + clamp(48px, 10vw, 80px));
+    padding-bottom: clamp(80px, 15vw, 120px);
+  }
 }
 
 /* Horizontal rule at top */

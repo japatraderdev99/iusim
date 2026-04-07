@@ -101,7 +101,7 @@
 }
 
 .statCell {
-  background-color: var(--color-midnight-soft);
+  background-color: rgba(19, 19, 19, 0.72);
   padding: clamp(24px, 3vw, 44px) clamp(16px, 2vw, 32px);
   display: flex;
   flex-direction: column;
@@ -111,7 +111,7 @@
 
   @media (--hover) {
     &:hover {
-      background-color: var(--color-surface);
+      background-color: rgba(39, 39, 39, 0.82);
     }
   }
 }

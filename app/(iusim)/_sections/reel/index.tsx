@@ -7,24 +7,33 @@ import s from './reel.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CASES = [
+const ARTICLES = [
   {
-    code: 'Ativo 001',
-    name: 'Compound Jurerê Internacional',
-    scope: 'Operação Bespoke · VGV R$ 40M',
-    videoSrc: '/videos/case-jurere.mp4',
+    tag: 'NAR · 2024',
+    title:
+      '96% dos compradores de alto padrão iniciam a busca exclusivamente online',
+    excerpt:
+      'O relatório Profile of Home Buyers and Sellers da NAR confirma que a decisão de visita presencial é tomada com base na qualidade da apresentação visual digital.',
+    source: 'National Association of Realtors',
+    href: '#',
   },
   {
-    code: 'Ativo 002',
-    name: 'Cobertura Frente Mar · BC',
-    scope: 'Módulo Signature',
-    videoSrc: '/videos/case-bc.mp4',
+    tag: 'Zoopla · 2024',
+    title:
+      'Imóveis com fotografia profissional vendem até 32% mais rápido e por até 2% acima do pedido',
+    excerpt:
+      'Análise de 500 mil transações no Reino Unido demonstra correlação direta entre qualidade visual de apresentação e proteção do VGV em ativos premium.',
+    source: 'Zoopla Property Research',
+    href: '#',
   },
   {
-    code: 'Ativo 003',
-    name: 'Residência Alto Padrão · Itapema',
-    scope: 'Módulo Pro',
-    videoSrc: '/videos/case-itapema.mp4',
+    tag: 'NAR · 2023–2025',
+    title:
+      'Vídeos narrativos de alto padrão aumentam consultas qualificadas em +403%',
+    excerpt:
+      'Propriedades com cinematografia profissional integrada registram mais de quatro vezes o volume de contatos de compradores com capacidade de decisão comprovada.',
+    source: 'National Association of Realtors',
+    href: '#',
   },
 ] as const
 
@@ -92,13 +101,11 @@ export function Reel() {
       <div className={s.inner}>
         <div className={s.header}>
           <div>
-            <p className={s.sectionTag}>
-              Acervo de Ativos — Operações Recentes
-            </p>
+            <p className={s.sectionTag}>Evidência — Dados de Mercado</p>
             <h2 className={s.title}>
-              Portfólio
+              A Tese
               <br />
-              de Legado.
+              Comprovada.
             </h2>
           </div>
         </div>
@@ -140,33 +147,15 @@ export function Reel() {
           </div>
         </div>
 
-        {/* Case studies grid */}
+        {/* Articles grid */}
         <div className={s.caseGrid}>
-          {CASES.map((item) => (
-            <div key={item.code} className={s.caseItem}>
-              <div className={s.caseMedia}>
-                <video
-                  className={s.caseVideo}
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  onMouseEnter={(e) =>
-                    void (e.currentTarget as HTMLVideoElement).play()
-                  }
-                  onMouseLeave={(e) => {
-                    const v = e.currentTarget as HTMLVideoElement
-                    v.pause()
-                    v.currentTime = 0
-                  }}
-                >
-                  <source src={item.videoSrc} type="video/mp4" />
-                </video>
-              </div>
+          {ARTICLES.map((article) => (
+            <div key={article.tag} className={s.caseItem}>
               <div className={s.caseInfo}>
-                <p className={s.caseCode}>{item.code}</p>
-                <h3 className={s.caseName}>{item.name}</h3>
-                <p className={s.caseScope}>{item.scope}</p>
+                <p className={s.caseCode}>{article.tag}</p>
+                <h3 className={s.caseName}>{article.title}</h3>
+                <p className={s.caseScope}>{article.excerpt}</p>
+                <p className={s.articleSource}>{article.source}</p>
               </div>
             </div>
           ))}
