@@ -1,15 +1,11 @@
 import { Analytics } from '@vercel/analytics/next'
 import { TransformProvider } from 'hamo'
 import type { Metadata, Viewport } from 'next'
-import { draftMode } from 'next/headers'
-import { VisualEditing } from 'next-sanity/visual-editing'
 import { type PropsWithChildren, Suspense } from 'react'
 import { ReactTempus } from 'tempus/react'
 import { Link } from '@/components/ui/link'
 import { RealViewport } from '@/components/ui/real-viewport'
 import { OptionalFeatures } from '@/lib/features'
-import { isSanityConfigured } from '@/lib/integrations/check-integration'
-import { SanityLive } from '@/lib/integrations/sanity/live'
 import { themes } from '@/lib/styles/colors'
 import { fontsVariable } from '@/lib/styles/fonts'
 import '@/lib/styles/css/index.css'
@@ -37,14 +33,8 @@ export const metadata: Metadata = {
     'VGV',
     'liquidez imobiliária',
   ],
-  alternates: {
-    canonical: '/',
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black',
-    title: 'Iusim',
-  },
+  alternates: { canonical: '/' },
+  appleWebApp: { capable: true, statusBarStyle: 'black', title: 'Iusim' },
   formatDetection: { telephone: false },
   openGraph: {
     type: 'website',
@@ -90,10 +80,7 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 }
 
-export default async function Layout({ children }: PropsWithChildren) {
-  const { isEnabled: isDraftMode } = await draftMode()
-  const sanityConfigured = isSanityConfigured()
-
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <html
       lang="pt-BR"
@@ -105,7 +92,7 @@ export default async function Layout({ children }: PropsWithChildren) {
         <Suspense fallback={null}>
           <Link
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-9999 focus:bg-black focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-white"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-black focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-white"
           >
             Ir para o conteúdo principal
           </Link>
@@ -114,15 +101,7 @@ export default async function Layout({ children }: PropsWithChildren) {
           <TransformProvider>{children}</TransformProvider>
         </RealViewport>
         <OptionalFeatures />
-
-        {sanityConfigured && isDraftMode && (
-          <Suspense fallback={null}>
-            <VisualEditing />
-            <SanityLive />
-          </Suspense>
-        )}
-
-        <ReactTempus patch={!isDraftMode} />
+        <ReactTempus patch />
         <Analytics />
       </body>
     </html>
