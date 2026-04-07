@@ -13,15 +13,6 @@ import { useEffect, useState } from 'react'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-// Lazy imports to avoid loading unused features
-const LazyGlobalCanvas = dynamic(
-  () =>
-    import('@/webgl/components/global-canvas').then((mod) => ({
-      default: mod.LazyGlobalCanvas,
-    })),
-  { ssr: false }
-)
-
 const OrchestraTools = dynamic(
   () => import('@/dev').then((mod) => ({ default: mod.OrchestraTools })),
   { ssr: false }
@@ -35,12 +26,6 @@ const GSAPRuntime = dynamic(
   { ssr: false }
 )
 
-/**
- * Conditionally loads optional root layout features
- *
- * Note: React Compiler handles memoization automatically.
- * No manual useMemo/useCallback needed.
- */
 export function OptionalFeatures() {
   const [isClient, setIsClient] = useState(false)
 
@@ -52,11 +37,7 @@ export function OptionalFeatures() {
 
   return (
     <>
-      {/* GSAP Runtime - always included (lightweight) */}
       <GSAPRuntime />
-      {/* WebGL/WebGPU Canvas - lazy loaded, only mounts when <Wrapper webgl> is used */}
-      <LazyGlobalCanvas />
-      {/* Development tools - only in development */}
       {isDevelopment && <OrchestraTools />}
     </>
   )
