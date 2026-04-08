@@ -14,6 +14,76 @@
   }
 }
 
+/* ─── Video background ───────────────────────────────── */
+
+.videoWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0; /* GSAP animates this in */
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.65;
+}
+
+/* Desktop video: hidden on mobile */
+.videoDesktop {
+  @media (max-width: 799px) {
+    display: none;
+  }
+}
+
+/* Mobile video: hidden on desktop */
+.videoMobile {
+  @media (--desktop) {
+    display: none;
+  }
+}
+
+/* Bottom fade — draws content into midnight background */
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.1) 0%,
+    rgba(10, 10, 10, 0.35) 55%,
+    rgba(10, 10, 10, 1) 100%
+  );
+}
+
+/* Side vignette — softens horizontal edges */
+.videoVignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 10, 0.65) 0%,
+    transparent 28%,
+    transparent 72%,
+    rgba(10, 10, 10, 0.65) 100%
+  );
+
+  @media (max-width: 799px) {
+    background: linear-gradient(
+      to right,
+      rgba(10, 10, 10, 0.5) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(10, 10, 10, 0.5) 100%
+    );
+  }
+}
+
+/* ─── Horizontal rule at top ─────────────────────────── */
+
 /* Horizontal rule at top */
 .topRule {
   position: absolute;
@@ -26,7 +96,7 @@
 
 .inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding-left: var(--safe);
   padding-right: var(--safe);
   padding-bottom: clamp(64px, 8vw, 120px);
@@ -97,12 +167,88 @@
   max-width: 380px;
 }
 
+/* ─── Sound toggle ───────────────────────────────────── */
+
+.soundToggle {
+  position: absolute;
+  bottom: var(--safe);
+  left: var(--safe);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  opacity: 0; /* GSAP animates in */
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.65;
+  }
+
+  /* On mobile: tuck under the headline to avoid overlap with scroll line */
+  @media (max-width: 799px) {
+    bottom: calc(var(--safe) + 4px);
+  }
+}
+
+.soundIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-ivory-muted);
+  transition: color 0.3s ease;
+}
+
+.soundLabel {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+  transition: color 0.3s ease;
+
+  /* Hide label on very small screens */
+  @media (max-width: 374px) {
+    display: none;
+  }
+}
+
+.isUnmuted .soundIcon,
+.isUnmuted .soundLabel {
+  color: var(--color-ivory);
+}
+
+/* ─── Bottom section transition ──────────────────────── */
+
+/* Soft gradient blending hero into Manifesto (#131313) */
+.sectionFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(120px, 18vw, 280px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(19, 19, 19, 0.6) 60%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── Scroll indicator ───────────────────────────────── */
+
 /* Scroll indicator */
 .scrollMark {
   position: absolute;
   bottom: var(--safe);
   right: var(--safe);
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
