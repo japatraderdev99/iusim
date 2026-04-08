@@ -34,22 +34,6 @@ export function Reel({ articles }: ReelProps) {
         }
       )
 
-      gsap.fromTo(
-        `.${s.mainReel}`,
-        { opacity: 0, y: 32 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: `.${s.mainReel}`,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      )
-
       ScrollTrigger.batch(`.${s.caseItem}`, {
         onEnter: (els) => {
           gsap.fromTo(
@@ -83,43 +67,6 @@ export function Reel({ articles }: ReelProps) {
               <br />
               Comprovada.
             </h2>
-          </div>
-        </div>
-
-        {/* Main reel — hero video */}
-        <div className={s.mainReel}>
-          <video
-            className={s.mainReelVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            poster="/videos/reel-poster.jpg"
-            aria-label="Showreel Iusim — Cinematografia de Ativos Premium"
-          >
-            <source src="/videos/iusim-reel.mp4" type="video/mp4" />
-          </video>
-          <div className={s.mainReelOverlay}>
-            <div className={s.playButton}>
-              <button
-                type="button"
-                className={s.playCircle}
-                aria-label="Assistir reel"
-              >
-                <svg
-                  width="16"
-                  height="18"
-                  viewBox="0 0 16 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M1 1L15 9L1 17V1Z" fill="rgba(245,240,234,0.8)" />
-                </svg>
-              </button>
-              <span className={s.playLabel}>Showreel 2026</span>
-            </div>
           </div>
         </div>
 

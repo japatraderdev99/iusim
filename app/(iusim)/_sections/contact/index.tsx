@@ -15,6 +15,15 @@ const VGV_RANGES = [
   'Acima de R$50M',
 ] as const
 
+const ASSET_TYPES = [
+  'Apartamento',
+  'Cobertura',
+  'Penthouse',
+  'Casa',
+  'Lote / Terreno',
+  'Empreendimento comercial',
+] as const
+
 export function Contact() {
   const rootRef = useRef<HTMLElement>(null)
 
@@ -60,15 +69,24 @@ export function Contact() {
     e.preventDefault()
     const form = e.currentTarget
     const data = new FormData(form)
-    const name = data.get('name')?.toString() ?? ''
-    const company = data.get('company')?.toString() ?? ''
+    const name = data.get('name')?.toString().trim() ?? ''
+    const company = data.get('company')?.toString().trim() ?? ''
+    const tipo = data.get('tipo')?.toString() ?? ''
     const vgv = data.get('vgv')?.toString() ?? ''
+    const localizacao = data.get('localizacao')?.toString().trim() ?? ''
 
-    const subject = encodeURIComponent('Protocolo de Análise — Iusim')
-    const body = encodeURIComponent(
-      `Titular / Executivo: ${name}\nCorporativo / Gestora: ${company}\nVGV estimado: ${vgv}`
+    const companyPart = company ? ` da ${company}` : ''
+    const message =
+      `Olá! Aqui é o ${name}${companyPart}. ` +
+      `Possuo ${tipo.toLowerCase()} com objetivo de valorizar para venda, ` +
+      `avaliado entre ${vgv}, localizado em ${localizacao}. ` +
+      `Aguardo o retorno.`
+
+    window.open(
+      `https://wa.me/5548999685129?text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noopener,noreferrer'
     )
-    window.location.href = `mailto:alexandre@iusim.co?subject=${subject}&body=${body}`
   }
 
   return (
@@ -143,6 +161,45 @@ export function Contact() {
                       className={s.formInput}
                       placeholder="Nome da empresa"
                       autoComplete="organization"
+                    />
+                  </div>
+                </div>
+
+                {/* Row: Tipo + Localização */}
+                <div className={s.formRow}>
+                  <div className={s.formGroup}>
+                    <label htmlFor="tipo" className={s.formLabel}>
+                      Tipo de ativo
+                    </label>
+                    <select
+                      id="tipo"
+                      name="tipo"
+                      className={s.formSelect}
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        Selecionar tipo
+                      </option>
+                      {ASSET_TYPES.map((t) => (
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className={s.formGroup}>
+                    <label htmlFor="localizacao" className={s.formLabel}>
+                      Localização do ativo
+                    </label>
+                    <input
+                      id="localizacao"
+                      name="localizacao"
+                      type="text"
+                      className={s.formInput}
+                      placeholder="Cidade / Bairro"
+                      required
+                      autoComplete="off"
                     />
                   </div>
                 </div>

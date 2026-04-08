@@ -42,6 +42,8 @@
 
 /* Mobile video: hidden on desktop */
 .videoMobile {
+  object-position: center top; /* Portrait-friendly framing */
+
   @media (--desktop) {
     display: none;
   }
@@ -146,10 +148,10 @@
 .headline {
   font-family: var(--font-serif);
   font-weight: 300;
-  line-height: 0.92;
+  line-height: 0.95;
   letter-spacing: -0.025em;
   color: var(--color-ivory);
-  font-size: clamp(60px, 10.5vw, 152px);
+  font-size: clamp(52px, 9vw, 132px);
   opacity: 0;
 }
 
@@ -230,15 +232,26 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: clamp(120px, 18vw, 280px);
+  height: clamp(160px, 20vw, 300px);
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(19, 19, 19, 0.6) 60%,
+    rgba(19, 19, 19, 0.55) 55%,
     rgba(19, 19, 19, 1) 100%
   );
   z-index: 1;
   pointer-events: none;
+
+  /* Mobile: taller and more opaque — video is portrait, needs stronger blend */
+  @media (max-width: 799px) {
+    height: 220px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(19, 19, 19, 0.65) 45%,
+      rgba(19, 19, 19, 1) 100%
+    );
+  }
 }
 
 /* ─── Scroll indicator ───────────────────────────────── */
