@@ -6,7 +6,7 @@ import { Link } from '@/components/ui/link'
 import s from './header.module.css'
 
 const NAV_LINKS = [
-  { href: '#posicionamento', label: 'Filosofia' },
+  { href: '/manifesto', label: 'Manifesto' },
   { href: '#tese', label: 'A Tese' },
   { href: '#servicos', label: 'Serviços' },
   { href: '#contato', label: 'Institucional' },

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useRef } from 'react'
 import { DottedGlowBackground } from '@/components/ui/dotted-glow'
+import { Link } from '@/components/ui/link'
 import s from './manifesto.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -46,7 +47,7 @@ export function Manifesto() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        `.${s.intro}`,
+        `.${s.teaserBlock}`,
         { opacity: 0, y: 28 },
         {
           opacity: 1,
@@ -54,24 +55,8 @@ export function Manifesto() {
           duration: 1.2,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: `.${s.intro}`,
+            trigger: `.${s.teaserBlock}`,
             start: 'top 80%',
-            once: true,
-          },
-        }
-      )
-
-      gsap.fromTo(
-        `.${s.close}`,
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: `.${s.close}`,
-            start: 'top 85%',
             once: true,
           },
         }
@@ -107,23 +92,32 @@ export function Manifesto() {
           <p className={s.sectionTag}>A Tese</p>
         </div>
 
-        {/* Intro paragraphs */}
-        <div className={s.introBlock}>
-          <div className={s.intro}>
-            <p className={s.introLead}>
+        {/* Teaser */}
+        <div className={s.teaserBlock}>
+          <div className={s.teaserText}>
+            <p className={s.teaserLead}>
               No mercado imobiliário de alto padrão,
               <br />a percepção de valor precede a negociação.
             </p>
-            <p className={s.introPara}>
-              Ativos singulares não possuem comparáveis de mercado. Sua
-              apresentação visual não documenta o imóvel — ela constitui o valor
-              na mente do comprador.
+            <p className={s.teaserBody}>
+              Ativos singulares não possuem comparáveis de mercado. A imagem não
+              documenta o imóvel — ela participa da formação do seu valor na
+              mente de quem o encontra.
             </p>
           </div>
-          <p className={s.close}>A Iusim opera nessa lacuna.</p>
+
+          <div className={s.teaserRight}>
+            <p className={s.teaserClose}>A Iusim opera nessa lacuna.</p>
+            <Link href="/manifesto" className={s.manifestoLink}>
+              Ler o Manifesto
+              <span className={s.manifestoArrow} aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
 
-        {/* Stats block — DottedGlow wraps only this */}
+        {/* Stats block */}
         <div className={s.statsWrapper}>
           <DottedGlowBackground
             gap={20}

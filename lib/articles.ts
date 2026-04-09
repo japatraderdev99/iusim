@@ -23,6 +23,8 @@ function parseArticle(slug: string): Article {
   const filePath = path.join(ARTICLES_DIR, slug, 'index.mdx')
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
+  // Strip HTML comments — image placeholders use <!-- --> which MDX v2 rejects
+  const clean = content.replace(/<!--[\s\S]*?-->/g, '')
 
   return {
     slug,
@@ -33,7 +35,7 @@ function parseArticle(slug: string): Article {
     date: data.date as string,
     cover: data.cover as string,
     draft: (data.draft as boolean | undefined) ?? false,
-    content,
+    content: clean,
   }
 }
 
