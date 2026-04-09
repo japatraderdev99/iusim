@@ -113,8 +113,8 @@ export function Contact() {
           <div className={s.contactItems}>
             <div className={s.contactItem}>
               <span className={s.contactLabel}>Email</span>
-              <Link href="mailto:alexandre@iusim.co" className={s.contactValue}>
-                alexandre@iusim.co
+              <Link href="mailto:contato@iusim.com" className={s.contactValue}>
+                contato@iusim.com
               </Link>
             </div>
             <div className={s.contactItem}>
