@@ -3,6 +3,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useRef } from 'react'
+import { Image } from '@/components/ui/image'
 import { Link } from '@/components/ui/link'
 import type { ArticleMeta } from '@/lib/articles'
 import s from './reel.module.css'
@@ -78,6 +79,17 @@ export function Reel({ articles }: ReelProps) {
               href={`/blog/${article.slug}`}
               className={s.caseItem}
             >
+              {article.cover && (
+                <div className={s.caseMedia}>
+                  <Image
+                    src={article.cover}
+                    alt={article.title}
+                    fill
+                    className={s.caseImage}
+                    desktopSize="33vw"
+                  />
+                </div>
+              )}
               <div className={s.caseInfo}>
                 <p className={s.caseCode}>{article.tag}</p>
                 <h3 className={s.caseName}>{article.title}</h3>

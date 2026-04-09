@@ -3,10 +3,41 @@
   min-height: 100dvh;
 }
 
+/* ─── Cover ──────────────────────────────────────────── */
+
+.cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+  background-color: var(--color-midnight-soft);
+
+  @media (max-width: 799px) {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.coverImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.coverOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    var(--color-midnight) 100%
+  );
+}
+
+/* ─── Inner ──────────────────────────────────────────── */
+
 .inner {
   padding-left: var(--safe);
   padding-right: var(--safe);
-  padding-top: clamp(96px, 12vw, 160px);
+  padding-top: clamp(48px, 6vw, 80px);
   padding-bottom: clamp(80px, 10vw, 160px);
   max-width: 760px;
 }
@@ -137,6 +168,19 @@
       }
     }
   }
+}
+
+/* ─── Body images (rendered via MDX custom component) ── */
+
+.bodyImageWrap {
+  margin: clamp(32px, 4vw, 52px) 0;
+  overflow: hidden;
+}
+
+.bodyImage {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ─── Footer ─────────────────────────────────────────── */

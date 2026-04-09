@@ -23,8 +23,15 @@ function parseArticle(slug: string): Article {
   const filePath = path.join(ARTICLES_DIR, slug, 'index.mdx')
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
-  // Strip HTML comments — image placeholders use <!-- --> which MDX v2 rejects
-  const clean = content.replace(/<!--[\s\S]*?-->/g, '')
+  const imageBase = `/images/articles/${slug}`
+  // Convert mid-content image comments to markdown; strip rest (cover shown separately)
+  const clean = content
+    .replace(
+      /<!--\s*IMAGEM:\s*([\w.-]+)[^>]*-->/g,
+      (_: string, filename: string) =>
+        filename === 'cover.jpg' ? '' : `\n![](${imageBase}/${filename})\n`
+    )
+    .replace(/<!--[\s\S]*?-->/g, '')
 
   return {
     slug,

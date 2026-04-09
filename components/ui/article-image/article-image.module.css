@@ -1,0 +1,10 @@
+.wrap {
+  margin: clamp(32px, 4vw, 52px) 0;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}

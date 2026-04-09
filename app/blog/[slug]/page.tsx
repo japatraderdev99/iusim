@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Wrapper } from '@/components/layout/wrapper'
+import { ArticleImage } from '@/components/ui/article-image'
 import { Image } from '@/components/ui/image'
 import { Link } from '@/components/ui/link'
 import { getArticle, getArticleSlugs } from '@/lib/articles'
@@ -73,7 +74,10 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* Body */}
           <div className={s.body}>
-            <MDXRemote source={article.content} />
+            <MDXRemote
+              source={article.content}
+              components={{ img: ArticleImage }}
+            />
           </div>
 
           {/* Back link */}

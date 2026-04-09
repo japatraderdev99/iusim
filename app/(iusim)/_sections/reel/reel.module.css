@@ -152,7 +152,13 @@
   transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.caseItem:hover .caseVideo {
+.caseImage {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.caseItem:hover .caseVideo,
+.caseItem:hover .caseImage {
   transform: scale(1.04);
 }
 

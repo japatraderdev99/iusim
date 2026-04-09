@@ -4,13 +4,22 @@ import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Wrapper } from '@/components/layout/wrapper'
+import { Image } from '@/components/ui/image'
 import { Link } from '@/components/ui/link'
 import s from './manifesto.module.css'
+import { ManifestoImage } from './manifesto-image'
 
 export const metadata: Metadata = {
   title: 'Manifesto — Iusim',
   description:
     'A Iusim não nasce para ocupar um espaço de mercado. Nasce para afirmar uma tese.',
+}
+
+const IMAGE_MAP: Record<string, string> = {
+  'cover.jpg': '/images/manifesto-fundador/cover.jpg',
+  'mid-content-1.jpg': '/images/manifesto-fundador/mid-content1.jpg',
+  'mid-content-2.jpg': '/images/manifesto-fundador/mid-content2.jpg',
+  'founder.jpg': '/images/manifesto-fundador/founder.jpg',
 }
 
 function getManifesto() {
@@ -20,9 +29,19 @@ function getManifesto() {
   )
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
-  // Strip HTML comments (image placeholders) — MDX v2 doesn't support them
-  const clean = content.replace(/<!--[\s\S]*?-->/g, '')
-  return { data, content: clean }
+
+  // Replace image placeholder comments with markdown images, then strip remaining HTML comments
+  const withImages = content
+    .replace(
+      /<!--\s*IMAGEM\s+([\w.-]+)[^>]*-->/g,
+      (_match: string, filename: string) => {
+        const src = IMAGE_MAP[filename]
+        return src ? `\n![](${src})\n` : ''
+      }
+    )
+    .replace(/<!--[\s\S]*?-->/g, '')
+
+  return { data, content: withImages }
 }
 
 export default async function ManifestoPage() {
@@ -36,6 +55,19 @@ export default async function ManifestoPage() {
   return (
     <Wrapper theme="dark" lenis={{ lerp: 0.05, smoothWheel: true }}>
       <article className={s.root}>
+        {/* Cover image */}
+        <div className={s.cover}>
+          <Image
+            src="/images/manifesto-fundador/cover.jpg"
+            alt="Manifesto Iusim"
+            fill
+            priority
+            className={s.coverImage}
+            desktopSize="100vw"
+          />
+          <div className={s.coverOverlay} />
+        </div>
+
         <div className={s.inner}>
           {/* Header */}
           <header className={s.header}>
@@ -54,7 +86,7 @@ export default async function ManifestoPage() {
 
           {/* Body */}
           <div className={s.body}>
-            <MDXRemote source={content} />
+            <MDXRemote source={content} components={{ img: ManifestoImage }} />
           </div>
 
           {/* Footer */}

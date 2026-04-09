@@ -7,9 +7,9 @@ import s from './header.module.css'
 
 const NAV_LINKS = [
   { href: '/manifesto', label: 'Manifesto' },
-  { href: '#tese', label: 'A Tese' },
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#contato', label: 'Institucional' },
+  { href: '/tese', label: 'A Tese' },
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/institucional', label: 'Institucional' },
 ] as const
 
 export function Header() {
