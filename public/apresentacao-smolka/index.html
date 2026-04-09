@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iusim × Smolka — Parceria Estratégica · Abril 2026</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   TOKENS — directly from IDV v1
+───────────────────────────────────────── */
+:root {
+  --night:   #0a0a0a;
+  --soft:    #111111;
+  --surf:    #181818;
+  --surf-hi: #222222;
+  --surf-hx: #2e2e2e;
+  --gold:    #C9A84C;
+  --gold-d:  #A88830;
+  --gb:      rgba(201,168,76,0.10);
+  --gb-s:    rgba(201,168,76,0.22);
+  --gb-xd:   rgba(201,168,76,0.06);
+  --gold-spot: rgba(201,168,76,0.04);
+  --ivory:   #f5f0ea;
+  --iv-dim:  rgba(245,240,234,0.75);
+  --iv-mut:  rgba(245,240,234,0.40);
+  --iv-sub:  rgba(245,240,234,0.10);
+  --bd:      rgba(245,240,234,0.08);
+  --bd-s:    rgba(245,240,234,0.18);
+  --z6: #3d3d3d;
+  --z5: #5a5a5a;
+  --z4: #7a7a7a;
+  --z3: #ababab;
+  --z2: #d8d8d8;
+  /* light slides */
+  --cream:   #f6f4f0;
+  --cream-lo:#eeebe5;
+  --ink:     #0f0f0f;
+  --ink-m:   #383838;
+  --ink-l:   #666666;
+  --ink-ll:  #999999;
+  /* type */
+  --fd: 'Cormorant Garamond', Georgia, serif;
+  --fh: 'Noto Serif', Georgia, serif;
+  --fb: 'Inter', system-ui, sans-serif;
+  --fc: 'Cinzel', Georgia, serif;
+  --ease: cubic-bezier(0.19,1,0.22,1);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:100%; height:100%; overflow:hidden; background:#000;
+  font-family:var(--fb); -webkit-font-smoothing:antialiased; }
+
+/* ─────────────────────────────────────────
+   DECK ENGINE
+───────────────────────────────────────── */
+#deck { width:100vw; height:100vh; position:relative; overflow:hidden; }
+
+.slide {
+  position:absolute; inset:0; height:100%;
+  opacity:0; transform:translateX(56px); pointer-events:none;
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.slide.active { opacity:1; transform:none; pointer-events:all; }
+.slide.exit   { opacity:0; transform:translateX(-56px); }
+
+/* ─────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────── */
+#nav {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  z-index:100; display:flex; align-items:center; gap:9px;
+  background:rgba(10,10,10,.88); backdrop-filter:blur(14px);
+  border:1px solid var(--gb); padding:7px 18px; border-radius:28px;
+}
+.dot { width:5px; height:5px; border-radius:50%;
+  background:var(--z5); cursor:pointer;
+  transition: all .3s var(--ease); }
+.dot.on { background:var(--gold); width:20px; border-radius:3px; }
+#nlbl { font-size:9px; font-weight:500; letter-spacing:.38em;
+  text-transform:uppercase; color:var(--z5); margin-left:6px; }
+.nbtn { width:26px; height:26px; border-radius:50%;
+  border:1px solid var(--gb-s); background:transparent;
+  color:var(--gold); cursor:pointer; font-size:11px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s; }
+.nbtn:hover { background:rgba(201,168,76,.12); }
+#narr { display:flex; gap:5px; margin-left:5px; }
+
+/* ─────────────────────────────────────────
+   SHARED UTILITIES
+───────────────────────────────────────── */
+
+/* corner meta labels (IDV signature) */
+.corners { position:absolute; inset:0; pointer-events:none; z-index:2; }
+.cc { position:absolute; font-size:8px; font-weight:500;
+  letter-spacing:.32em; text-transform:uppercase; color:var(--z6); }
+.cc-tl { top:clamp(16px,2.4vh,28px); left:clamp(20px,2.8vw,40px); }
+.cc-tr { top:clamp(16px,2.4vh,28px); right:clamp(20px,2.8vw,40px); }
+.cc-bl { bottom:clamp(16px,2.4vh,28px); left:clamp(20px,2.8vw,40px); }
+.cc-br { bottom:clamp(16px,2.4vh,28px); right:clamp(20px,2.8vw,40px); }
+
+/* section number + title (IDV .sec-hd) */
+.sec-hd { display:flex; align-items:baseline; gap:18px; }
+.sec-n { font-size:9px; font-weight:700; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--z6); flex-shrink:0; }
+.sec-t { font-family:var(--fd); font-size:clamp(22px,3.2vw,44px);
+  font-weight:300; font-style:italic; color:var(--ivory);
+  letter-spacing:-.02em; line-height:1; }
+
+/* gold label (IDV .lbl) */
+.lbl { font-size:9px; font-weight:500; letter-spacing:.38em;
+  text-transform:uppercase; color:var(--z5); }
+.lbl-gold { color:var(--gold); }
+
+/* quote block (IDV phi-quote) */
+.quote-block {
+  font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(16px,2vw,26px); line-height:1.45; color:var(--ivory);
+  border-left:1px solid var(--gb-s); padding-left:clamp(20px,2.6vw,36px);
+}
+
+/* IDV data-cell */
+.dc { background:var(--soft); padding:clamp(18px,2.4vh,28px) clamp(18px,2vw,26px);
+  display:flex; flex-direction:column; justify-content:space-between; }
+.dc-lbl { font-size:9px; font-weight:500; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--z5); }
+.dc-val { font-family:var(--fd); font-size:clamp(32px,4.5vw,62px);
+  font-weight:300; font-style:italic; line-height:.9; color:var(--gold); }
+.dc-sub { font-size:9px; font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--z6); margin-top:3px; }
+.dc-body { font-size:clamp(9px,.9vw,11px); font-weight:300;
+  line-height:1.6; color:var(--z4); margin-top:6px; }
+
+/* grid border (IDV technique: gap+bg) */
+.gborder { display:grid; gap:1px; background:var(--gb); }
+
+/* dot background */
+.dots::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle, rgba(201,168,76,.065) 1px, transparent 1px);
+  background-size:28px 28px; z-index:0;
+}
+/* spotlight */
+.spot::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 55% at 50% 46%,
+    rgba(201,168,76,.05) 0%, transparent 72%);
+  z-index:0;
+}
+
+/* footnote */
+.fnote { font-size:clamp(7px,.7vw,9px); font-weight:400; color:var(--z6);
+  letter-spacing:.06em; }
+
+/* ═══════════════════════════════════════════
+   LOGO MARKS (reusable SVG)
+═══════════════════════════════════════════ */
+.logo-iusim svg { width:100%; }
+.logo-smolka svg { width:100%; }
+
+/* ══════════════════════════════════════════════════════
+   S1 — CAPA
+══════════════════════════════════════════════════════ */
+#s1 { background:var(--night); display:flex;
+  flex-direction:column; align-items:center; justify-content:center;
+  position:relative; overflow:hidden; }
+#s1 .grid-lines {
+  position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(180deg,
+    transparent, transparent 19.4%,
+    rgba(255,255,255,.012) 19.4%, rgba(255,255,255,.012) calc(19.4% + 1px));
+}
+#s1 .inner {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center; gap:clamp(14px,2.2vh,26px);
+  padding:0 clamp(24px,5vw,80px);
+}
+#s1 .logos-row {
+  display:flex; align-items:center; justify-content:center;
+  gap:clamp(18px,3.5vw,52px);
+}
+#s1 .sm-logo { width:clamp(180px,23vw,330px); }
+#s1 .dv { width:1px; height:clamp(44px,7vh,72px);
+  background:linear-gradient(to bottom, transparent, var(--gold), transparent); }
+#s1 .iu-logo { width:clamp(100px,12vw,170px); }
+#s1 .rule { width:clamp(200px,38vw,520px); height:.8px; background:var(--gold); opacity:.6; }
+#s1 .t1 { font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(20px,2.8vw,38px); color:var(--ivory);
+  letter-spacing:-.02em; line-height:1; }
+#s1 .t2 { font-size:9px; font-weight:500; letter-spacing:.38em;
+  text-transform:uppercase; color:var(--z5); }
+#s1 .rod { position:absolute; bottom:0; left:0; right:0; height:28px;
+  border-top:1px solid var(--gb); display:flex; align-items:center;
+  justify-content:center;
+  font-size:9px; font-weight:400; letter-spacing:.08em; color:var(--z6); }
+
+/* ══════════════════════════════════════════════════════
+   S2 — A DECISÃO COMEÇA NUMA TELA
+══════════════════════════════════════════════════════ */
+#s2 { background:var(--soft); display:flex; flex-direction:column;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,20px); position:relative; overflow:hidden; }
+#s2.dots::after { z-index:0; }
+#s2 > * { position:relative; z-index:1; }
+#s2 .body { display:grid; grid-template-columns:54% 46%;
+  gap:clamp(14px,2.2vw,28px); flex:1; min-height:0; }
+#s2 .left { display:flex; flex-direction:column; gap:clamp(14px,2vh,22px); justify-content:center; }
+#s2 .phi-q { font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(16px,2.1vw,28px); line-height:1.35; color:var(--ivory);
+  border-left:1px solid var(--gb-s); padding-left:clamp(18px,2.2vw,28px); }
+#s2 .sub { font-size:clamp(10px,.92vw,12px); font-weight:300;
+  line-height:1.75; color:var(--z4); }
+#s2 .chain-box { background:var(--night); border:1px solid var(--gb);
+  padding:clamp(12px,1.8vh,18px) clamp(14px,1.8vw,20px); }
+#s2 .chain-lbl { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--z5); margin-bottom:6px; }
+#s2 .chain-txt { font-family:var(--fd); font-size:clamp(11px,1.2vw,15px);
+  font-style:italic; font-weight:300; color:var(--ivory); line-height:1.5; }
+#s2 .right { display:grid; grid-template-rows:repeat(3,1fr); gap:1px; background:var(--gb); }
+
+/* ══════════════════════════════════════════════════════
+   S_SMOLKA — A HIERARQUIA VISUAL
+══════════════════════════════════════════════════════ */
+#s_smolka { background:var(--night); display:flex; flex-direction:column;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,20px); position:relative; overflow:hidden; }
+#s_smolka.dots::after { z-index:0; }
+#s_smolka.spot::before { z-index:0; }
+#s_smolka > * { position:relative; z-index:1; }
+#s_smolka .sub { font-size:clamp(10px,.92vw,12px); font-weight:300;
+  line-height:1.7; color:var(--z4); max-width:700px; }
+#s_smolka .formats { display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:var(--gb); flex:1; min-height:0; }
+#s_smolka .fmt { background:var(--surf); padding:clamp(18px,2.6vh,30px) clamp(16px,2vw,22px);
+  display:flex; flex-direction:column; gap:clamp(10px,1.4vh,16px); }
+#s_smolka .fmt-peak { background:var(--soft); border-top:2px solid var(--gold); }
+#s_smolka .fmt-n { font-size:9px; font-weight:700; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--z5); }
+#s_smolka .fmt-peak .fmt-n { color:var(--gold); }
+#s_smolka .fmt-t { font-family:var(--fd); font-size:clamp(15px,1.8vw,22px);
+  font-weight:300; font-style:italic; color:var(--ivory); line-height:1.1; }
+#s_smolka .fmt-fn { font-size:clamp(9px,.88vw,11px); font-weight:500;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--z5);
+  padding-bottom:clamp(8px,1.2vh,14px); border-bottom:1px solid var(--gb); margin-bottom:2px; }
+#s_smolka .fmt-d { font-size:clamp(9px,.88vw,11px); font-weight:300;
+  color:var(--z4); line-height:1.65; flex:1; }
+#s_smolka .fmt-badge { font-size:9px; font-weight:700; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--gold); margin-top:auto;
+  padding-top:clamp(8px,1.2vh,14px); border-top:1px solid var(--gb-s); }
+
+/* ══════════════════════════════════════════════════════
+   S3 — OS DADOS CONFIRMAM
+══════════════════════════════════════════════════════ */
+#s3 { background:var(--soft); display:flex; flex-direction:column;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,20px); position:relative; overflow:hidden; }
+#s3.dots::after { z-index:0; }
+#s3 > * { position:relative; z-index:1; }
+#s3 .intro { font-size:clamp(10px,.92vw,12px); font-weight:300;
+  line-height:1.7; color:var(--z4); max-width:640px; }
+#s3 .measures { display:grid; grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr; gap:1px; background:var(--gb);
+  flex:1; min-height:0; }
+#s3 .ms { background:var(--surf); padding:clamp(20px,3vh,36px) clamp(22px,2.8vw,36px);
+  display:flex; flex-direction:column; justify-content:space-between; }
+#s3 .ms-lbl { font-size:9px; font-weight:500; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--z5); }
+#s3 .ms-val { font-family:var(--fd); font-size:clamp(52px,7.5vw,96px);
+  font-weight:300; font-style:italic; color:var(--gold); line-height:.88;
+  margin:clamp(8px,1.2vh,14px) 0; }
+#s3 .ms-desc { font-size:clamp(10px,.95vw,12px); font-weight:300;
+  color:var(--z4); line-height:1.65; }
+#s3 .ms-src { font-size:8px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--z6); margin-top:clamp(6px,1vh,10px); }
+#s3 .cadeia { background:var(--night); border:1px solid var(--gb-s);
+  padding:clamp(10px,1.5vh,16px) clamp(16px,2vw,24px); }
+#s3 .cadeia-lbl { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--z5); margin-bottom:5px; }
+#s3 .cadeia-txt { font-family:var(--fd); font-size:clamp(11px,1.2vw,16px);
+  font-style:italic; font-weight:300; color:var(--ivory); line-height:1.45; }
+
+/* ══════════════════════════════════════════════════════
+   S4 — EXECUÇÃO CINEMATOGRÁFICA
+══════════════════════════════════════════════════════ */
+#s4 { background:var(--soft); display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,22px); }
+#s4 .body { display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:var(--gb); }
+#s4 .col { background:var(--soft); padding:clamp(18px,2.4vh,28px) clamp(18px,2.2vw,28px);
+  display:flex; flex-direction:column; gap:clamp(12px,1.8vh,20px); }
+#s4 .col-hd { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--gold);
+  padding-bottom:clamp(8px,1.2vh,14px); border-bottom:1px solid var(--gb-s); }
+#s4 .tech-list { display:flex; flex-direction:column; gap:1px; background:var(--gb); }
+#s4 .tech-item { background:var(--surf); padding:clamp(10px,1.5vh,16px) clamp(14px,1.8vw,20px);
+  display:flex; gap:clamp(10px,1.4vw,16px); align-items:flex-start; }
+#s4 .ti-n { font-size:9px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold); flex-shrink:0;
+  width:clamp(16px,1.8vw,22px); }
+#s4 .ti-t { font-family:var(--fd); font-size:clamp(12px,1.3vw,17px);
+  font-weight:300; font-style:italic; color:var(--ivory); line-height:1.1;
+  margin-bottom:3px; }
+#s4 .ti-d { font-size:clamp(8px,.82vw,10px); font-weight:300;
+  color:var(--z4); line-height:1.5; }
+#s4 .narrative { background:var(--night); border:1px solid var(--gb-s);
+  padding:clamp(14px,2vh,22px) clamp(16px,2vw,24px); }
+#s4 .nar-lbl { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--z5); margin-bottom:clamp(8px,1.2vh,14px); }
+#s4 .nar-txt { font-family:var(--fd); font-size:clamp(13px,1.4vw,18px);
+  font-style:italic; font-weight:300; color:var(--ivory); line-height:1.45; }
+
+/* ══════════════════════════════════════════════════════
+   S5 — QUEM É A IUSIM
+══════════════════════════════════════════════════════ */
+#s5 { background:var(--cream); display:flex; flex-direction:column; }
+#s5 .body { flex:1; display:grid; grid-template-columns:36% 64%; }
+#s5 .left { background:var(--night); display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:clamp(12px,1.8vh,22px); padding:clamp(24px,3.5vw,52px); }
+#s5 .iu-mark { width:clamp(44px,5.5vw,70px); }
+#s5 .iu-wm { font-family:'Cinzel', Georgia, serif; font-size:clamp(22px,2.8vw,38px);
+  color:var(--ivory); letter-spacing:.04em; }
+#s5 .div-h { width:64%; height:.8px; background:var(--bd-s); }
+#s5 .manifesto { font-family:var(--fd); font-size:clamp(11px,1.2vw,16px);
+  font-style:italic; font-weight:300; color:var(--iv-mut);
+  text-align:center; line-height:1.6; }
+#s5 .right { padding:clamp(22px,3.2vw,48px) clamp(24px,3.5vw,52px);
+  display:flex; flex-direction:column; justify-content:center;
+  gap:clamp(12px,1.8vh,20px); }
+#s5 .right-hd { font-family:var(--fd); font-size:clamp(16px,2vw,26px);
+  font-weight:300; font-style:italic; color:var(--ink); line-height:1.25; }
+#s5 .lista { display:flex; flex-direction:column; background:var(--cream-lo);
+  border:1px solid rgba(0,0,0,.07); }
+#s5 .li { display:grid; grid-template-columns:clamp(20px,2.2vw,28px) 1fr;
+  gap:clamp(10px,1.2vw,16px); align-items:start;
+  padding:clamp(10px,1.4vh,16px) clamp(14px,1.8vw,22px);
+  border-bottom:1px solid rgba(0,0,0,.06); }
+#s5 .li:last-child { border-bottom:none; }
+#s5 .li-mark { font-family:var(--fd); font-size:clamp(14px,1.6vw,20px);
+  color:var(--gold); font-style:italic; font-weight:300; line-height:1.2; }
+#s5 .li-t { font-family:var(--fh); font-size:clamp(10px,1.1vw,14px);
+  font-weight:700; color:var(--ink); line-height:1.2; }
+#s5 .li-d { font-size:clamp(8px,.82vw,10px); font-weight:300;
+  color:var(--ink-l); line-height:1.5; margin-top:2px; }
+#s5 .acento-top { width:100%; height:4px; background:var(--gold); flex-shrink:0; }
+
+/* ══════════════════════════════════════════════════════
+   S6 — A MATEMÁTICA DO VALOR
+══════════════════════════════════════════════════════ */
+#s6 { background:var(--night); display:grid;
+  grid-template-rows:auto auto 1fr auto;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,22px); position:relative; overflow:hidden; }
+#s6.dots::after, #s6.spot::before { z-index:0; }
+#s6 > * { position:relative; z-index:1; }
+#s6 .quote { font-family:var(--fd); font-size:clamp(13px,1.5vw,20px);
+  font-style:italic; font-weight:300; color:var(--iv-dim); line-height:1.35;
+  border-left:1px solid var(--gb-s); padding-left:clamp(18px,2.2vw,28px); }
+#s6 .grid-2x2 { display:grid; grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr; gap:1px; background:var(--gb); flex:1; }
+#s6 .cell { background:var(--surf); padding:clamp(16px,2.2vh,26px) clamp(16px,2vw,26px);
+  display:flex; flex-direction:column; justify-content:space-between; }
+#s6 .c-lbl { font-size:9px; font-weight:500; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--z5); }
+#s6 .c-val { font-family:var(--fd); font-size:clamp(36px,5vw,66px);
+  font-weight:300; font-style:italic; color:var(--gold); line-height:.88; }
+#s6 .c-desc { font-size:clamp(9px,.88vw,11px); font-weight:300;
+  color:var(--z4); line-height:1.55; margin-top:6px; }
+#s6 .c-src { font-size:8px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--z6); margin-top:6px; }
+
+/* ══════════════════════════════════════════════════════
+   S7 — PORTFÓLIO
+══════════════════════════════════════════════════════ */
+#s7 { background:var(--cream); display:flex; flex-direction:column; }
+#s7 .acento-top { width:100%; height:4px; background:var(--gold); flex-shrink:0; }
+#s7 .header { padding:clamp(18px,2.6vh,34px) clamp(28px,4vw,64px) clamp(10px,1.4vh,16px);
+  display:flex; flex-direction:column; gap:8px; }
+#s7 .h-quote { font-family:var(--fd); font-size:clamp(12px,1.4vw,18px);
+  font-style:italic; font-weight:300; color:var(--ink-m); }
+#s7 .tiers { flex:1; display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--gb-s);
+  padding:0 clamp(28px,4vw,64px) clamp(14px,2vh,22px); }
+.tier { padding:clamp(16px,2.2vh,26px) clamp(16px,2vw,24px);
+  display:flex; flex-direction:column; gap:clamp(8px,1.1vh,13px); }
+.tier-dk { background:var(--night); }
+.tier-md { background:var(--surf); }
+.tier-gd { background:var(--gold); }
+.tier-tag { font-size:9px; font-weight:700; letter-spacing:.28em;
+  text-transform:uppercase; text-align:center; }
+.tier-dk .tier-tag, .tier-md .tier-tag { color:var(--gold); }
+.tier-gd .tier-tag { color:var(--night); }
+.tier-price { font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(22px,2.8vw,38px); text-align:center; line-height:1; }
+.tier-dk .tier-price, .tier-md .tier-price { color:var(--ivory); }
+.tier-gd .tier-price { color:var(--night); }
+.tier-sub { font-size:9px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; text-align:center; }
+.tier-dk .tier-sub, .tier-md .tier-sub { color:var(--z5); }
+.tier-gd .tier-sub { color:rgba(10,10,10,.6); }
+.tier-sep { height:1px; }
+.tier-dk .tier-sep, .tier-md .tier-sep { background:var(--gb-s); }
+.tier-gd .tier-sep { background:rgba(10,10,10,.2); }
+.tier-items { display:flex; flex-direction:column; gap:clamp(6px,.9vh,10px); }
+.tier-item { font-size:clamp(8px,.85vw,10.5px); font-weight:300;
+  line-height:1.45; display:flex; gap:8px; align-items:flex-start; }
+.tier-item::before { content:'—'; flex-shrink:0; font-weight:400; }
+.tier-dk .tier-item, .tier-md .tier-item { color:var(--z3); }
+.tier-gd .tier-item { color:var(--night); }
+#s7 .ext { font-size:clamp(7px,.75vw,9px); color:var(--ink-ll);
+  text-align:center; padding:0 clamp(28px,4vw,64px) clamp(10px,1.4vh,14px); }
+
+/* ══════════════════════════════════════════════════════
+   S8 — VISÃO ESTRATÉGICA
+══════════════════════════════════════════════════════ */
+#s8 { background:var(--night); display:grid;
+  grid-template-rows:auto auto 1fr auto 1fr;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,20px); position:relative; overflow:hidden; }
+#s8.dots::after { z-index:0; }
+#s8 > * { position:relative; z-index:1; }
+#s8 .headline { font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(18px,2.5vw,34px); color:var(--ivory); letter-spacing:-.02em; }
+#s8 .sub { font-size:clamp(9px,.95vw,12px); font-weight:300;
+  color:var(--z4); line-height:1.55; max-width:600px; }
+#s8 .roadmap { display:flex; align-items:center; justify-content:stretch; }
+.rm { display:flex; flex-direction:column; align-items:center;
+  gap:clamp(5px,.8vh,9px); flex:0 0 auto; }
+.rm-dot { width:clamp(32px,3.8vw,46px); height:clamp(32px,3.8vw,46px);
+  border-radius:50%; display:flex; align-items:center;
+  justify-content:center; font-size:clamp(9px,1vw,13px); font-weight:500; }
+.rm-dot.a { background:var(--gold); color:var(--night); }
+.rm-dot.f { border:1px solid var(--gb-s); color:var(--z6);
+  background:transparent; }
+.rm-pr { font-size:8px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; }
+.rm.a .rm-pr { color:var(--gold); }
+.rm:not(.a) .rm-pr { color:var(--z6); }
+.rm-nm { font-family:var(--fd); font-size:clamp(9px,1vw,13px);
+  font-style:italic; font-weight:300; text-align:center; max-width:100px; }
+.rm.a .rm-nm { color:var(--ivory); }
+.rm:not(.a) .rm-nm { color:var(--z6); }
+.rm-line { flex:1; height:1px; margin:0 clamp(6px,1vw,14px);
+  position:relative; top:clamp(-22px,-2.8vh,-16px); }
+.rm-line.s { background:var(--gold); opacity:.5; }
+.rm-line.d { background:repeating-linear-gradient(90deg,
+  var(--z6) 0,var(--z6) 5px,transparent 5px,transparent 10px); }
+#s8 .rule { width:100%; height:1px; background:var(--gb); }
+#s8 .pillars { display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--gb); }
+.pillar { background:var(--surf); padding:clamp(12px,1.7vh,20px) clamp(14px,1.8vw,22px);
+  display:flex; flex-direction:column; gap:8px; }
+.pi-n { font-size:9px; font-weight:700; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--z6); }
+.pi-t { font-family:var(--fd); font-size:clamp(11px,1.2vw,16px);
+  font-style:italic; font-weight:300; color:var(--ivory); line-height:1.15; }
+.pi-d { font-size:clamp(8px,.82vw,10px); font-weight:300;
+  color:var(--z4); line-height:1.55; }
+
+/* ══════════════════════════════════════════════════════
+   S9 — REFERÊNCIAS DE AUTORIDADE
+══════════════════════════════════════════════════════ */
+#s9 { background:var(--soft); display:grid;
+  grid-template-rows:auto 1fr;
+  padding:clamp(22px,3.2vh,44px) clamp(28px,4vw,64px) clamp(18px,2.6vh,32px);
+  gap:clamp(12px,1.8vh,22px); }
+#s9 .refs { display:grid; grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(2,1fr); gap:1px; background:var(--gb); }
+.ref { background:var(--surf); padding:clamp(14px,2vh,22px) clamp(14px,1.8vw,20px);
+  display:flex; flex-direction:column; gap:clamp(5px,.8vh,9px);
+  border-top:2px solid transparent; }
+.ref.gold-top { border-top-color:var(--gold); }
+.ref-ctx { font-size:8px; font-weight:600; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--z6); }
+.ref-name { font-family:var(--fd); font-size:clamp(14px,1.6vw,20px);
+  font-weight:300; font-style:italic; color:var(--ivory); line-height:1.1; }
+.ref-handle { font-size:clamp(8px,.82vw,10px); font-weight:400;
+  color:var(--gold); letter-spacing:.06em; }
+.ref-desc { font-size:clamp(8px,.8vw,10px); font-weight:300;
+  color:var(--z4); line-height:1.55; flex:1; }
+
+/* ══════════════════════════════════════════════════════
+   S10 — O PROJETO PILOTO
+══════════════════════════════════════════════════════ */
+#s10 { background:var(--cream); display:flex; flex-direction:column; }
+#s10 .acento-top { width:100%; height:4px; background:var(--gold); flex-shrink:0; }
+#s10 .body { flex:1; display:grid; grid-template-columns:40% 60%; }
+#s10 .left { background:var(--night); display:flex; flex-direction:column;
+  justify-content:center; gap:clamp(14px,2.2vh,26px);
+  padding:clamp(24px,3.5vw,52px) clamp(22px,3vw,40px); }
+#s10 .sm-lg { width:clamp(160px,20vw,280px); }
+#s10 .p-lbl { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--gold); }
+#s10 .p-title { font-family:var(--fd); font-size:clamp(16px,2.1vw,28px);
+  font-weight:300; font-style:italic; color:var(--ivory);
+  line-height:1.2; letter-spacing:-.01em; }
+#s10 .p-rule { width:80%; height:.8px; background:var(--gb-s); }
+#s10 .p-body { font-size:clamp(9px,.92vw,12px); font-weight:300;
+  color:var(--iv-mut); line-height:1.7; }
+#s10 .right { padding:clamp(24px,3.5vw,52px) clamp(26px,3.8vw,52px);
+  display:flex; flex-direction:column; justify-content:center;
+  gap:clamp(12px,1.8vh,20px); }
+#s10 .r-lbl { font-size:9px; font-weight:700; letter-spacing:.36em;
+  text-transform:uppercase; color:var(--gold); }
+#s10 .r-headline { font-family:var(--fh); font-size:clamp(12px,1.4vw,18px);
+  font-weight:700; color:var(--ink); line-height:1.25; }
+#s10 .steps { display:flex; flex-direction:column; gap:1px; background:var(--gb); }
+.step { background:var(--cream-lo); display:grid;
+  grid-template-columns:clamp(26px,3.2vw,38px) 1fr;
+  gap:clamp(10px,1.4vw,16px); align-items:start;
+  padding:clamp(10px,1.4vh,16px) clamp(14px,1.8vw,20px); }
+.step-n { width:clamp(26px,3.2vw,38px); height:clamp(26px,3.2vw,38px);
+  background:var(--gold); color:var(--night); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--fd); font-weight:300; font-style:italic;
+  font-size:clamp(12px,1.4vw,18px); flex-shrink:0; }
+.step-t { font-family:var(--fh); font-size:clamp(9px,1vw,13px);
+  font-weight:700; color:var(--ink); line-height:1.2; }
+.step-d { font-size:clamp(8px,.8vw,10px); font-weight:300;
+  color:var(--ink-l); line-height:1.5; margin-top:2px; }
+#s10 .zero-risk { background:var(--night); border:1px solid var(--gb-s);
+  padding:clamp(12px,1.7vh,18px) clamp(14px,1.8vw,22px);
+  display:flex; flex-direction:column; gap:5px; }
+#s10 .zr-t { font-family:var(--fd); font-size:clamp(13px,1.4vw,18px);
+  font-weight:300; font-style:italic; color:var(--gold); }
+#s10 .zr-d { font-size:clamp(8px,.82vw,10.5px); font-weight:300;
+  color:var(--iv-mut); line-height:1.6; }
+
+/* ══════════════════════════════════════════════════════
+   S11 — CLOSING
+══════════════════════════════════════════════════════ */
+#s11 { background:var(--night); display:flex;
+  flex-direction:column; align-items:center; justify-content:center;
+  position:relative; overflow:hidden; }
+#s11.spot::before, #s11.dots::after { z-index:0; }
+#s11 .inner { position:relative; z-index:1;
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center; gap:clamp(16px,2.5vh,30px);
+  padding:0 clamp(24px,5vw,80px); }
+#s11 .logos-row { display:flex; align-items:center;
+  gap:clamp(16px,3.2vw,46px); }
+#s11 .sm-cl { width:clamp(160px,19vw,270px); }
+#s11 .iu-cl { width:clamp(88px,10vw,140px); }
+#s11 .dv { width:1px; height:clamp(40px,6vh,64px);
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent); }
+#s11 .rule  { width:clamp(200px,38vw,520px); height:.8px; background:var(--gold); opacity:.5; }
+#s11 .rule2 { width:clamp(200px,38vw,520px); height:1px; background:var(--bd-s); }
+#s11 .cit { display:flex; flex-direction:column; gap:2px; }
+#s11 .cl { font-family:var(--fd); font-size:clamp(13px,1.6vw,22px);
+  font-weight:300; font-style:italic; color:var(--ivory); line-height:1.4; }
+#s11 .cl-gold { color:var(--gold); }
+#s11 .enc { font-size:clamp(10px,1vw,13px); font-weight:300;
+  color:var(--iv-dim); }
+#s11 .contact { font-size:clamp(9px,.92vw,12px); font-weight:500;
+  letter-spacing:.1em; color:var(--gold); }
+#s11 .ab { position:absolute; bottom:0; left:0; right:0;
+  height:14px; background:var(--gold); }
+</style>
+</head>
+<body>
+<div id="deck">
+
+<!-- ══════════════════════════════════════
+     SLIDE 1 — CAPA
+══════════════════════════════════════ -->
+<div class="slide spot" id="s1">
+  <div class="grid-lines"></div>
+  <!-- corner labels IDV style -->
+  <div class="corners">
+    <span class="cc cc-tl">Iusim · Estratégia Visual</span>
+    <span class="cc cc-tr">Florianópolis · SC — Abril 2026</span>
+    <span class="cc cc-bl">iusim.co</span>
+    <span class="cc cc-br">Parceria Estratégica</span>
+  </div>
+  <div class="inner">
+    <div class="logos-row">
+      <!-- SMOLKA Logo -->
+      <div class="sm-logo">
+        <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="200" y="60" text-anchor="middle"
+            font-family="'Cinzel', 'Times New Roman', serif"
+            font-size="60" font-weight="600" fill="#C9A84C" letter-spacing="2">SMOLKA</text>
+          <text x="325" y="34" font-family="'Cinzel',serif" font-size="15" fill="#C9A84C">®</text>
+          <text x="200" y="88" text-anchor="middle"
+            font-family="'Cinzel', 'Times New Roman', serif"
+            font-size="16" font-weight="400" fill="#C9A84C" letter-spacing="10">IMÓVEIS</text>
+        </svg>
+      </div>
+      <div class="dv"></div>
+      <!-- IUSIM Mark + wordmark -->
+      <div class="iu-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1002.77 1002.77">
+          <g fill="#f5f0ea">
+            <path d="M644.05,366.59c31.02-35.5,44.68-78.28,43.79-126.17,44.01,24.58,78.66,72.44,78.66,128.33,0,46.24-23.09,92.44-63.77,125.66l.54.28c41.12-29.28,73.64-75.87,73.64-127.63,0-80.25-65.73-149.25-137.41-153.16l26.61,12.96c4.73,40.87-5.27,82.69-37.63,124.58-39.19-37.09-85.68-52.24-146.3-49.07l-8.32,21.53c48.24-3.97,91.65,6.95,138.33,42.68-14.39,14.19-23.15,21.08-38.27,28.01l-5.3,24.93c21.91-8.1,39.41-20.07,58.62-37.38,26.96,31.25,39.35,64.05,38.36,109.49-1.87,84.44-68.69,165.26-164.72,164.69-69.48-.38-119.4-38.65-150.46-93.56l-24.8-3.4c29.09,61.83,88.66,117.75,175.26,117.75,104.42,0,186.25-87.96,186.25-183.96,0-46.78-17.27-95.05-43.09-126.58h0Z"/>
+            <path d="M500.83,56.43c-100.83,0-189.24,79.48-189.24,186.7,0,44.23,16.8,86.06,43.98,121.88-30.26,32.93-45.1,77.07-43.98,129.47-46.02-24.13-81.71-71.8-81.71-128.3,0-46.9,20.23-90.44,68.66-127.12l-.22-.22c-45.03,27.94-75.55,73.04-75.55,127.09,0,75.3,56.24,143.31,132.45,155.64l6.67.92-27.41-15.65c-4.06-41.32,8.64-82.53,35.72-122.67,36.01,33.82,79.71,48.37,147.51,46.75l8.99-21.91c-44.23,5.88-90.28-5.02-138.4-41.38,16.45-15.72,23.88-20.8,37.47-28.07l5.56-24.93c-21.88,9.59-35.06,19.75-57.64,37.92-25.56-32.93-39.06-70.6-39.06-106.61,0-83.55,70.5-167.64,164.5-168.31,66.82-.48,121.94,39.16,150.75,92.66l24.8,5.71c-26.93-71.96-91.27-119.56-173.87-119.56Z"/>
+            <path d="M501.47,89.94c-82.44,0-153.95,68.25-156.81,142.11l15.4-30.04c43.7-2.86,86.98,7.02,123.69,37.28-37.09,39.44-52.24,86.06-47.76,151.03l20.71,4.76c-5.81-45.73,5.74-91.14,43.25-139.54,12.23,13.66,17.15,22.23,24.71,36.42l27.24,4.92c-10.42-24.71-21.22-39.76-36.9-57.61,29.66-26.74,68.78-38.65,105.94-38.65,88.6,0,169.36,68.25,169.36,165.96,0,60.66-34.93,120.35-94.7,153.44l-1.94,23.02c67.26-27.85,118.64-88.22,118.42-176.88-.22-100.16-82.85-187.36-187.46-187.36-49.89,0-91.49,16.04-123.76,44.62-34.33-29.69-76.47-42.9-126.99-43.67,26.93-47.95,74.5-80.5,127.98-80.5,46.36,0,87.49,21.12,125.66,66.69l.73-.35c-29.47-46.24-72.37-75.67-126.77-75.67h.01Z"/>
+            <path d="M306.29,192.09c-66.5,27.44-115.59,92.38-115.59,175.68,0,97.97,78.75,185.97,185.24,185.97,50.14,0,93.2-19.31,123.85-42.9,33.69,28.58,76.34,43.06,124.8,43.06-24.2,44.96-70.12,80.37-125.69,80.37-46.62,0-90.51-23.24-125.05-67.29l-3.02.19c28.9,42.61,65.87,69.71,126.55,69.71,79.39,0,146.33-69.99,150.02-120.29l7.56-17.18-15.79,35.16c-39.28,2.26-81.13-8.57-124.64-39.31,34.33-37.85,51.76-87.71,49.29-149.19l-21.12-6.54c7.08,43.51-2.83,94-43.54,141.09-13.85-14.16-21.44-25.03-26.23-38.58l-25.09-5.49c9.52,23.66,20.96,42.55,36.26,59.38-31.28,24.93-66.43,38.14-109.37,38.14-87.04,0-165.07-74.28-165.07-167.45,0-66.78,39.53-126.11,93.27-149.1l3.36-25.4h0Z"/>
+            <path d="M408.77,159.39c28.58-28.2,56.94-35.09,87.74-35.09,35.79,0,70.53,18.96,95.24,48.15l18.7-2.63c-31.12-38.3-66.24-56.18-109.88-56.18-38.43,0-69.87,18.87-91.81,45.76h0Z"/>
+            <path d="M715.5,279.96c25.44,32.67,27.53,62.72,24.77,93.46-3.4,37.66-20.58,67.58-43.09,89.39l2.1,16.1c35.57-29.63,52.33-67.52,52.33-109.08,0-36.45-15.88-70.34-36.11-89.87h0Z"/>
+            <path d="M287.34,458.24c-25.44-32.67-29.47-62.72-28.77-90.25,1.01-37.69,20.23-70.97,44.04-92.79l-1.34-16.2c-34.9,26.61-54.37,61.64-54.37,103.21,0,33.69,16.35,72.4,40.43,96.03h0Z"/>
+            <path d="M390.83,565.58c28.58,32.71,58.72,48.43,102.32,49.22,35.79.67,70.21-14.8,99.87-40.01-27.18,24.04-58.15,31.98-90.25,31.06-35.79-1.05-69.54-16.32-94-42.71l-17.94,2.44h0Z"/>
+          </g>
+          <text transform="translate(204.47 886.76)" font-family="Georgia,serif" font-size="220" fill="#f5f0ea" font-style="italic">Iusim</text>
+        </svg>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="t1">Parceria Estratégica</div>
+    <div class="t2">Engenharia Visual · Posicionamento Nacional · Founder Led Growth</div>
+  </div>
+  <div class="rod">iusim.co &nbsp;·&nbsp; alexandre@iusim.co &nbsp;·&nbsp; (48) 99968-5129 &nbsp;·&nbsp; Florianópolis, SC</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 2 — A DECISÃO COMEÇA NUMA TELA
+══════════════════════════════════════ -->
+<div class="slide dots" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <span class="sec-t">A Decisão Começa Numa Tela</span>
+  </div>
+  <div class="body">
+    <div class="left">
+      <div class="phi-q">Em 2024, 96% dos compradores de imóveis premium iniciaram a busca online antes de qualquer contato presencial. A percepção de valor é formada pela tela — antes da visita, antes da ligação, antes do contato.</div>
+      <p class="sub">Ativos singulares não possuem comparáveis de mercado. Sem parâmetros objetivos, o comprador calibra valor pela qualidade da informação que recebe. Essa mecânica — documentada pela literatura de finanças comportamentais como <em>information quality premium</em> — é especialmente pronunciada em imóveis de luxo: quanto menor a disponibilidade de dados comparativos, maior o peso atribuído à experiência visual na formação da percepção de valor.<br><br>Em mercados onde metade dos ativos acima de R$5M ainda é apresentada com produção visual inadequada, a excelência não é diferencial — é proteção de valor.</p>
+      <div class="chain-box">
+        <div class="chain-lbl">A cadeia causal</div>
+        <div class="chain-txt">Visual de excelência → +403% de consultas qualificadas → menor assimetria de informação → narrativa ancora preço → venda mais rápida, sem deságio.</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="dc">
+        <div class="dc-lbl">Atenção digital</div>
+        <div class="dc-val">60<span style="font-size:.42em">%</span></div>
+        <div class="dc-sub">do tempo de análise gasto em fotos e vídeos</div>
+        <div class="dc-body">Contra apenas 20% na descrição textual. A decisão de visita é formada visualmente — antes que qualquer palavra seja lida.</div>
+        <div class="dc-sub" style="margin-top:auto">Redfin Eye-Tracking Study 2024</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">Decisão de visita</div>
+        <div class="dc-val">83<span style="font-size:.42em">%</span></div>
+        <div class="dc-sub">classificam fotos como "muito úteis"</div>
+        <div class="dc-body">Na decisão de agendar visita. Antes de qualquer contato com o corretor, o comprador já formou percepção — positiva ou negativa — pelo material visual.</div>
+        <div class="dc-sub" style="margin-top:auto">NAR · 2025</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">Alcance em portais</div>
+        <div class="dc-val">+38<span style="font-size:.42em">%</span></div>
+        <div class="dc-sub">de CTR com 15+ fotos profissionais</div>
+        <div class="dc-body">Mais cliques, mais leads, mais qualificação — antes de qualquer investimento em tráfego pago. A qualidade visual é o melhor ROI na distribuição de ativos premium.</div>
+        <div class="dc-sub" style="margin-top:auto">Zoopla UK · 2024</div>
+      </div>
+    </div>
+  </div>
+  <div class="fnote">Fontes: NAR Digital Age Report 2024–2025 · Redfin Eye-Tracking Study 2024 · Zoopla UK Research 2024 · Iusim Tese Estratégica Abril 2026</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 3 — A HIERARQUIA VISUAL
+══════════════════════════════════════ -->
+<div class="slide dots spot" id="s_smolka">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <span class="sec-t">A Hierarquia dos Formatos</span>
+  </div>
+  <p class="sub">No mercado imobiliário premium, cada formato visual cumpre uma função específica e insubstituível na jornada de compra. Entender essa hierarquia é entender onde o valor é criado — e onde ele é desperdiçado.</p>
+  <div class="formats">
+    <div class="fmt">
+      <div class="fmt-n">01</div>
+      <div class="fmt-fn">Atenção &amp; Prova Básica</div>
+      <div class="fmt-t">Foto Profissional</div>
+      <div class="fmt-d">Formato de maior impacto inicial no portal. Infraestrutura da decisão de qualquer listagem — o mínimo indispensável para que o ativo seja levado a sério. 83% dos compradores classificam fotos como "muito úteis" na decisão de agendar visita.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-n">02</div>
+      <div class="fmt-fn">Triagem Racional</div>
+      <div class="fmt-t">Planta &amp; Floor Plan</div>
+      <div class="fmt-d">Recurso número 1 para 33% dos compradores. Organiza a cognição e filtra o universo de candidatos antes da visita — reduz deslocamentos não qualificados e encurta o funil de vendas.</div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-n">03</div>
+      <div class="fmt-fn">Qualificação Espacial</div>
+      <div class="fmt-t">Tour 3D Imersivo</div>
+      <div class="fmt-d">Permite ao comprador avaliar o "fit" do imóvel no topo do funil. Listagens com tour 3D vão para "pending" 14% mais rápido. Reduz visitas não qualificadas — especialmente relevante para compradores de outras praças.</div>
+    </div>
+    <div class="fmt fmt-peak">
+      <div class="fmt-n">04</div>
+      <div class="fmt-fn">Desejo &amp; Narrativa</div>
+      <div class="fmt-t">Filme Cinematográfico</div>
+      <div class="fmt-d">O único formato que responde "que vida esse ativo representa". Eleva a percepção de luxo, ancora preço na mente do comprador e altera a avaliação econômica antes da negociação. A foto informa. A planta organiza. O tour qualifica. <em>O filme vende o imaginário do ativo.</em></div>
+      <div class="fmt-badge">Aqui opera a Iusim</div>
+    </div>
+  </div>
+  <div class="fnote">Fontes: NAR 2025 · Zillow Research 2024 · Redfin Eye-Tracking Study 2024 · Iusim Tese Estratégica Abril 2026</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 — OS DADOS CONFIRMAM
+══════════════════════════════════════ -->
+<div class="slide dots" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <span class="sec-t">Os Dados Confirmam</span>
+  </div>
+  <p class="intro">A economia da percepção visual é mensurável. Cada número abaixo representa o impacto documentado da excelência audiovisual em ativos imobiliários premium — auditado por instituições independentes entre 2023 e 2025.</p>
+  <div class="measures">
+    <div class="ms">
+      <div class="ms-lbl">Presença Digital · Busca Online</div>
+      <div class="ms-val">96<span style="font-size:.4em">%</span></div>
+      <div class="ms-desc">dos compradores de imóveis premium pesquisam online antes de qualquer ação presencial. A percepção de valor é formada pela tela — antes da visita, antes do contato.</div>
+      <div class="ms-src">NAR · Digital Age Report 2024</div>
+    </div>
+    <div class="ms">
+      <div class="ms-lbl">Tração Qualificada · Vídeo Narrativo</div>
+      <div class="ms-val">+403<span style="font-size:.4em">%</span></div>
+      <div class="ms-desc">de consultas qualificadas em listagens com vídeo narrativo profissional versus listagens sem vídeo. Compradores de SP, RJ, Portugal e Argentina decidem via tela.</div>
+      <div class="ms-src">NAR · 2023–2025</div>
+    </div>
+    <div class="ms">
+      <div class="ms-lbl">Liquidez · Days on Market</div>
+      <div class="ms-val">68<span style="font-size:.4em">%</span></div>
+      <div class="ms-desc">de redução no tempo de venda com mapeamento aéreo narrativo profissional integrado. Velocidade de giro é margem — menos dias na prateleira, menos pressão por desconto.</div>
+      <div class="ms-src">NAR · 2024</div>
+    </div>
+    <div class="ms">
+      <div class="ms-lbl">Defesa de VGV · Proteção de Preço</div>
+      <div class="ms-val">2<span style="font-size:.4em">%</span></div>
+      <div class="ms-desc">de proteção no preço de fechamento com pacote visual completo. Em R$22M: R$440K preservados. Em R$40M: R$800K. ROI de 10×–20× sobre o investimento em produção.</div>
+      <div class="ms-src">Zoopla UK 2024 · Zillow Showcase 2025</div>
+    </div>
+  </div>
+  <div class="cadeia">
+    <div class="cadeia-lbl">A cadeia causal completa</div>
+    <div class="cadeia-txt">Visual de excelência → +403% de consultas → leads mais qualificados → menor assimetria de informação → narrativa ancora preço antes da negociação → venda 68% mais rápida → VGV 2% protegido.</div>
+  </div>
+  <div class="fnote">Fontes auditáveis: NAR 2024–2025 · Zillow Research · Zoopla UK · VHT Studios · Redfin Eye-Tracking Study · Journal of Urban Economics</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 — EXECUÇÃO CINEMATOGRÁFICA
+══════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <span class="sec-t">Execução Cinematográfica</span>
+  </div>
+  <div class="body">
+    <!-- Left column: técnicas -->
+    <div class="col">
+      <div class="col-hd">Técnicas &amp; Equipamento</div>
+      <div class="tech-list">
+        <div class="tech-item">
+          <div class="ti-n">01</div>
+          <div>
+            <div class="ti-t">Captação de Cinema</div>
+            <div class="ti-d">Câmeras RED Raptor X (8K), drones DJI Inspire 3. Alcance dinâmico massivo que preserva texturas e volumes dos ativos premium. Os 13 tiros essenciais: avanços, órbitas, ninja walk, transições dia-noite.</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="ti-n">02</div>
+          <div>
+            <div class="ti-t">Gestão de Luz Natural</div>
+            <div class="ti-d">Golden Hour e Blue Hour para valorização extrema da arquitetura. HDR Bracketing + técnica Flambient (flash + ambiente) para preservar vista externa em imóveis frente-mar sem queimar o exterior.</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="ti-n">03</div>
+          <div>
+            <div class="ti-t">Fly-Through &amp; Drone Narrativo</div>
+            <div class="ti-d">Plano sequência único conectando ambientes — escala arquitetônica e fluidez espacial que nenhuma câmera terrestre alcança. Micro-engenharia de voo para proximidade narrativa.</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="ti-n">04</div>
+          <div>
+            <div class="ti-t">Masterização Multiplataforma</div>
+            <div class="ti-d">Entrega simultânea: 9:16 para Instagram/mobile, 16:9 4K para YouTube e portais, cápsulas de 15s para tráfego pago. Um dia de captação, ecossistema completo de conteúdo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right column: narrativa -->
+    <div class="col">
+      <div class="col-hd">Arquitetura Narrativa</div>
+      <div class="tech-list">
+        <div class="tech-item">
+          <div class="ti-n">01</div>
+          <div>
+            <div class="ti-t">Jornada do Herói</div>
+            <div class="ti-d">O comprador é o protagonista. O ativo é o mundo que transforma a vida dele. A Smolka é o guia. Não vendemos metragem — vendemos o réveillon naquela cobertura, o café com vista para o mar, o status que o endereço carrega.</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="ti-n">02</div>
+          <div>
+            <div class="ti-t">Ciência do Hook</div>
+            <div class="ti-d">Os primeiros 2 segundos determinam 80% da retenção. Hooks de autoridade, experiência POV e curiosidade financeira calibrados para o perfil UHNW — alto patrimônio, baixa tolerância a conteúdo genérico.</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="ti-n">03</div>
+          <div>
+            <div class="ti-t">Acoplamento Neural</div>
+            <div class="ti-d">Narrativa cinematográfica cria memória emocional que ancora preço antes da negociação. O comprador que viveu o imóvel pela tela já o comprou mentalmente — o processo de venda é confirmação, não convencimento.</div>
+          </div>
+        </div>
+      </div>
+      <div class="narrative">
+        <div class="nar-lbl">Princípio Iusim</div>
+        <div class="nar-txt">"No mercado premium, a foto informa, a planta organiza, o tour qualifica — e o filme vende o imaginário do ativo. A Iusim opera nessa camada mais profunda."</div>
+      </div>
+    </div>
+  </div>
+  <div class="fnote">Referências técnicas: DJI · RED Digital Cinema · Adobe · ARRI · técnicas documentadas em produção imobiliária de ultra-luxo (Enes Yilmazer · Erik Conover · Williams &amp; Williams Estates)</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 5 — QUEM É A IUSIM
+══════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="acento-top"></div>
+  <div class="body">
+    <div class="left">
+      <!-- Iusim mark -->
+      <div class="iu-mark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1002.77 1002.77">
+          <g fill="#f5f0ea">
+            <path d="M644.05,366.59c31.02-35.5,44.68-78.28,43.79-126.17,44.01,24.58,78.66,72.44,78.66,128.33,0,46.24-23.09,92.44-63.77,125.66l.54.28c41.12-29.28,73.64-75.87,73.64-127.63,0-80.25-65.73-149.25-137.41-153.16l26.61,12.96c4.73,40.87-5.27,82.69-37.63,124.58-39.19-37.09-85.68-52.24-146.3-49.07l-8.32,21.53c48.24-3.97,91.65,6.95,138.33,42.68-14.39,14.19-23.15,21.08-38.27,28.01l-5.3,24.93c21.91-8.1,39.41-20.07,58.62-37.38,26.96,31.25,39.35,64.05,38.36,109.49-1.87,84.44-68.69,165.26-164.72,164.69-69.48-.38-119.4-38.65-150.46-93.56l-24.8-3.4c29.09,61.83,88.66,117.75,175.26,117.75,104.42,0,186.25-87.96,186.25-183.96,0-46.78-17.27-95.05-43.09-126.58h0Z"/>
+            <path d="M500.83,56.43c-100.83,0-189.24,79.48-189.24,186.7,0,44.23,16.8,86.06,43.98,121.88-30.26,32.93-45.1,77.07-43.98,129.47-46.02-24.13-81.71-71.8-81.71-128.3,0-46.9,20.23-90.44,68.66-127.12l-.22-.22c-45.03,27.94-75.55,73.04-75.55,127.09,0,75.3,56.24,143.31,132.45,155.64l6.67.92-27.41-15.65c-4.06-41.32,8.64-82.53,35.72-122.67,36.01,33.82,79.71,48.37,147.51,46.75l8.99-21.91c-44.23,5.88-90.28-5.02-138.4-41.38,16.45-15.72,23.88-20.8,37.47-28.07l5.56-24.93c-21.88,9.59-35.06,19.75-57.64,37.92-25.56-32.93-39.06-70.6-39.06-106.61,0-83.55,70.5-167.64,164.5-168.31,66.82-.48,121.94,39.16,150.75,92.66l24.8,5.71c-26.93-71.96-91.27-119.56-173.87-119.56Z"/>
+            <path d="M501.47,89.94c-82.44,0-153.95,68.25-156.81,142.11l15.4-30.04c43.7-2.86,86.98,7.02,123.69,37.28-37.09,39.44-52.24,86.06-47.76,151.03l20.71,4.76c-5.81-45.73,5.74-91.14,43.25-139.54,12.23,13.66,17.15,22.23,24.71,36.42l27.24,4.92c-10.42-24.71-21.22-39.76-36.9-57.61,29.66-26.74,68.78-38.65,105.94-38.65,88.6,0,169.36,68.25,169.36,165.96,0,60.66-34.93,120.35-94.7,153.44l-1.94,23.02c67.26-27.85,118.64-88.22,118.42-176.88-.22-100.16-82.85-187.36-187.46-187.36-49.89,0-91.49,16.04-123.76,44.62-34.33-29.69-76.47-42.9-126.99-43.67,26.93-47.95,74.5-80.5,127.98-80.5,46.36,0,87.49,21.12,125.66,66.69l.73-.35c-29.47-46.24-72.37-75.67-126.77-75.67h.01Z"/>
+            <path d="M306.29,192.09c-66.5,27.44-115.59,92.38-115.59,175.68,0,97.97,78.75,185.97,185.24,185.97,50.14,0,93.2-19.31,123.85-42.9,33.69,28.58,76.34,43.06,124.8,43.06-24.2,44.96-70.12,80.37-125.69,80.37-46.62,0-90.51-23.24-125.05-67.29l-3.02.19c28.9,42.61,65.87,69.71,126.55,69.71,79.39,0,146.33-69.99,150.02-120.29l7.56-17.18-15.79,35.16c-39.28,2.26-81.13-8.57-124.64-39.31,34.33-37.85,51.76-87.71,49.29-149.19l-21.12-6.54c7.08,43.51-2.83,94-43.54,141.09-13.85-14.16-21.44-25.03-26.23-38.58l-25.09-5.49c9.52,23.66,20.96,42.55,36.26,59.38-31.28,24.93-66.43,38.14-109.37,38.14-87.04,0-165.07-74.28-165.07-167.45,0-66.78,39.53-126.11,93.27-149.1l3.36-25.4h0Z"/>
+            <path d="M408.77,159.39c28.58-28.2,56.94-35.09,87.74-35.09,35.79,0,70.53,18.96,95.24,48.15l18.7-2.63c-31.12-38.3-66.24-56.18-109.88-56.18-38.43,0-69.87,18.87-91.81,45.76h0Z"/>
+            <path d="M715.5,279.96c25.44,32.67,27.53,62.72,24.77,93.46-3.4,37.66-20.58,67.58-43.09,89.39l2.1,16.1c35.57-29.63,52.33-67.52,52.33-109.08,0-36.45-15.88-70.34-36.11-89.87h0Z"/>
+            <path d="M287.34,458.24c-25.44-32.67-29.47-62.72-28.77-90.25,1.01-37.69,20.23-70.97,44.04-92.79l-1.34-16.2c-34.9,26.61-54.37,61.64-54.37,103.21,0,33.69,16.35,72.4,40.43,96.03h0Z"/>
+            <path d="M390.83,565.58c28.58,32.71,58.72,48.43,102.32,49.22,35.79.67,70.21-14.8,99.87-40.01-27.18,24.04-58.15,31.98-90.25,31.06-35.79-1.05-69.54-16.32-94-42.71l-17.94,2.44h0Z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="iu-wm">Iusim</div>
+      <div class="div-h"></div>
+      <div class="manifesto">Não somos uma produtora.<br>Somos engenheiros de<br>percepção de valor.</div>
+    </div>
+    <div class="right">
+      <div class="lbl lbl-gold" style="margin-bottom:4px">04 · O que a Iusim entrega</div>
+      <div class="right-hd">Mediação entre a substância do ativo e o destino econômico que ele merece.</div>
+      <div class="lista">
+        <div class="li">
+          <div class="li-mark">↗</div>
+          <div><div class="li-t">Defesa do VGV</div><div class="li-d">Proteção ativa do preço de venda por narrativa cinematográfica que ancora valor na mente do comprador antes da negociação — inibindo descontos antes que comecem.</div></div>
+        </div>
+        <div class="li">
+          <div class="li-mark">◷</div>
+          <div><div class="li-t">Redução do Days on Market</div><div class="li-d">Ativos bem apresentados vendem até 68% mais rápido. Menos tempo de prateleira = menos custo de carregamento, menos pressão por desconto, mais margem para a imobiliária.</div></div>
+        </div>
+        <div class="li">
+          <div class="li-mark">◈</div>
+          <div><div class="li-t">Posicionamento Institucional da Smolka</div><div class="li-d">Cada ativo publicado sob padrão Iusim eleva a percepção da imobiliária. O padrão visual que você publica é o padrão da sua marca na mente do mercado.</div></div>
+        </div>
+        <div class="li">
+          <div class="li-mark">★</div>
+          <div><div class="li-t">Founder Led Growth do CEO</div><div class="li-d">Conteúdo cinematográfico que posiciona o founder como voz autorizada do mercado premium nacional — construindo autoridade pessoal que nenhum budget de mídia compra.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 6 — A MATEMÁTICA DO VALOR
+══════════════════════════════════════ -->
+<div class="slide dots spot" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <span class="sec-t">A Matemática do Valor</span>
+  </div>
+  <div class="quote">Para a Smolka: em Jurerê Internacional, um único ativo de R$22M protegido do deságio gera R$440K — o ROI de uma operação Iusim é <em style="font-style:normal;color:var(--gold)">67×</em>.</div>
+  <div class="grid-2x2">
+    <div class="cell">
+      <div class="c-lbl">ROI · Casa Jurerê R$22M (flagship Smolka)</div>
+      <div class="c-val">67<span style="font-size:.45em">×</span></div>
+      <div class="c-desc">R$440.000 de deságio evitado (2% VGV) ÷ R$6.490 investidos em produção Signature = ROI de 67× em um único ativo. O investimento se paga no primeiro dia de negociação.</div>
+      <div class="c-src">Modelo Iusim · benchmark Zoopla UK 2024</div>
+    </div>
+    <div class="cell">
+      <div class="c-lbl">ROI · Top 20 ativos premium do portfólio</div>
+      <div class="c-val">15<span style="font-size:.45em">×</span></div>
+      <div class="c-desc">R$100M em VGV (20 ativos × R$5M médio) · 2% protegido = R$2M · investimento total estimado R$130K · retorno sobre o investimento visual de 15×.</div>
+      <div class="c-src">Modelo Iusim · portfólio Smolka 2026</div>
+    </div>
+    <div class="cell">
+      <div class="c-lbl">Velocidade de Giro · DOM reduction</div>
+      <div class="c-val">68<span style="font-size:.45em">%</span></div>
+      <div class="c-desc">redução no Days on Market com visual profissional. Para a Smolka: 2 ciclos extras de venda por trimestre por corretor = +R$X em comissões sem aumentar equipe.</div>
+      <div class="c-src">NAR 2024 · VHT Studios · Redfin Eye-Tracking</div>
+    </div>
+    <div class="cell">
+      <div class="c-lbl">Audiência Digital · projeção 12 meses</div>
+      <div class="c-val">50K<span style="font-size:.38em">+</span></div>
+      <div class="c-desc">de 1.390 seguidores atuais para 50K+ com conteúdo cinematográfico consistente. Ryan Serhant: 2,5M. Daniel Daggers: líder em ultra-prime via Instagram. O modelo está validado.</div>
+      <div class="c-src">benchmark founder-led growth · Iusim research 2026</div>
+    </div>
+  </div>
+  <div class="fnote">Metodologias: análise longitudinal de transações · rastreamento ocular de compradores · experimentos A/B de listing · dados de 2023–2025</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 7 — PORTFÓLIO
+══════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="acento-top"></div>
+  <div class="header">
+    <div class="lbl lbl-gold">06 · Portfólio de Serviços</div>
+    <div class="h-quote">Três níveis de engenharia visual. Um único padrão de rigor técnico e narrativo.</div>
+  </div>
+  <div class="tiers">
+    <div class="tier tier-md">
+      <div class="tier-tag">Essential</div>
+      <div class="tier-price">R$ 1.490</div>
+      <div class="tier-sub">Liquidez Digital</div>
+      <div class="tier-sep"></div>
+      <div class="tier-items">
+        <div class="tier-item">Síntese visual 30s — máximo impacto nos primeiros frames</div>
+        <div class="tier-item">Mapeamento aéreo e terrestre com DJI Inspire 3</div>
+        <div class="tier-item">Masterização vertical 9:16 para Instagram / mobile</div>
+      </div>
+    </div>
+    <div class="tier tier-dk">
+      <div class="tier-tag">Pro</div>
+      <div class="tier-price">R$ 2.990</div>
+      <div class="tier-sub">Apresentação de Portfólio</div>
+      <div class="tier-sep"></div>
+      <div class="tier-items">
+        <div class="tier-item">Cinematografia narrativa 60–90s — jornada do comprador</div>
+        <div class="tier-item">Entrega multiplataforma 4K (16:9 YouTube + 9:16 redes)</div>
+        <div class="tier-item">2 cápsulas de tração adicionais para lançamento</div>
+      </div>
+    </div>
+    <div class="tier tier-gd">
+      <div class="tier-tag">Signature</div>
+      <div class="tier-price">R$ 6.490</div>
+      <div class="tier-sub">Posicionamento de Legado</div>
+      <div class="tier-sep"></div>
+      <div class="tier-items">
+        <div class="tier-item">Golden / Blue Hour — gestão de luz natural em cena</div>
+        <div class="tier-item">Acervo fotográfico editorial premium (catálogos, iPad)</div>
+        <div class="tier-item">5 cápsulas táticas + roteirização e direção de valor</div>
+      </div>
+    </div>
+  </div>
+  <div class="ext">Bespoke: ativos &gt; R$10M — Custo Base + Success Fee sobre VGV, faturado na liquidação.&nbsp;&nbsp;|&nbsp;&nbsp;Extensões: Voice-Over · Host In-Scene · Fly-Through · Fast-Track · Boost de Distribuição</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 8 — VISÃO ESTRATÉGICA
+══════════════════════════════════════ -->
+<div class="slide dots" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <span class="sec-t">Visão Estratégica</span>
+  </div>
+  <div class="headline">De Jurerê ao Brasil.</div>
+  <div class="sub">A Smolka como referência nacional no segmento imobiliário de ultra-luxo — e o CEO como a voz autorizada desse mercado no Brasil.</div>
+  <div class="roadmap">
+    <div class="rm a">
+      <div class="rm-pr">Agora</div>
+      <div class="rm-dot a">◈</div>
+      <div class="rm-nm">Jurerê Internacional</div>
+    </div>
+    <div class="rm-line s"></div>
+    <div class="rm">
+      <div class="rm-pr">6 meses</div>
+      <div class="rm-dot f">○</div>
+      <div class="rm-nm">Balneário Camboriú</div>
+    </div>
+    <div class="rm-line d"></div>
+    <div class="rm">
+      <div class="rm-pr">12 meses</div>
+      <div class="rm-dot f">○</div>
+      <div class="rm-nm">Itapema &amp; Porto Belo</div>
+    </div>
+    <div class="rm-line d"></div>
+    <div class="rm">
+      <div class="rm-pr">24 meses</div>
+      <div class="rm-dot f">○</div>
+      <div class="rm-nm">Brasil Premium</div>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pi-n">Posicionamento</div>
+      <div class="pi-t">Padrão Sotheby's, operação catarinense</div>
+      <div class="pi-d">Smolka como a imobiliária de referência visual do luxo no litoral sul — o padrão que define o benchmark do mercado regional e nacional</div>
+    </div>
+    <div class="pillar">
+      <div class="pi-n">Founder Led Growth</div>
+      <div class="pi-t">O Ryan Serhant do Brasil</div>
+      <div class="pi-d">CEO como voz autorizada do mercado premium nacional — construindo audiência, autoridade e confiança que geram negócios antes de qualquer anúncio</div>
+    </div>
+    <div class="pillar">
+      <div class="pi-n">Alcance Internacional</div>
+      <div class="pi-t">SP, RJ, Portugal, Argentina</div>
+      <div class="pi-d">Compradores de fora que pesquisam, formam percepção e decidem exclusivamente via tela — o padrão visual da Smolka precisa alcançar onde eles estão</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 9 — REFERÊNCIAS DE AUTORIDADE
+══════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <span class="sec-t">Referências de Autoridade</span>
+  </div>
+  <div class="refs">
+    <div class="ref gold-top">
+      <div class="ref-ctx">Founder-Led Growth · EUA</div>
+      <div class="ref-name">Ryan Serhant</div>
+      <div class="ref-handle">@ryanserhant · 2.5M seguidores</div>
+      <div class="ref-desc">Modelo definitivo de Founder Led Growth. Transformou marca pessoal em ecossistema de mídia combinando megaprojetos, família, educação em vendas. Pessoas confiam em indivíduos, não em logos.</div>
+    </div>
+    <div class="ref gold-top">
+      <div class="ref-ctx">Ultra-Prime · Londres / Netflix</div>
+      <div class="ref-name">Daniel Daggers</div>
+      <div class="ref-handle">@daniel_daggers · Mr. Super Prime</div>
+      <div class="ref-desc">Contornou agências centenárias usando exclusivamente marca pessoal no Instagram para fechar negócios bilionários. Instagram como principal ferramenta de credibilidade junto a UHNW individuals.</div>
+    </div>
+    <div class="ref gold-top">
+      <div class="ref-ctx">Old Money Luxury · CEO Sotheby's França</div>
+      <div class="ref-name">Alexander Kraft</div>
+      <div class="ref-handle">@alexander.kraft</div>
+      <div class="ref-desc">Referência do estilo Old Money: alfaiataria, carros clássicos, propriedades europeias. Autoridade construída sem parecer vendedor. Herança como diferencial de posicionamento premium.</div>
+    </div>
+    <div class="ref">
+      <div class="ref-ctx">Cinematografia Imersiva · EUA/YouTube</div>
+      <div class="ref-name">Enes Yilmazer &amp; Erik Conover</div>
+      <div class="ref-handle">Super-tours 4K · 20–30min documentários</div>
+      <div class="ref-desc">Dominam o formato de documentários imersivos de propriedades de luxo. Roteirização da Jornada do Herói — comprador como protagonista. Vendendo estilo de vida, não metragem quadrada.</div>
+    </div>
+    <div class="ref">
+      <div class="ref-ctx">Alto Padrão Nacional · Litoral Sul</div>
+      <div class="ref-name">Bruno Cassola &amp; Paulo Cruz</div>
+      <div class="ref-handle">BC · Litoral SC · UP Real Estate</div>
+      <div class="ref-desc">Referências nacionais em BC: vídeos curtos como vitrines de impacto visual de coberturas de R$30M. Transição de corretor para educador com credibilidade em mídia nacional.</div>
+    </div>
+    <div class="ref">
+      <div class="ref-ctx">Educação Imobiliária · Brasil</div>
+      <div class="ref-name">Guilherme Machado</div>
+      <div class="ref-handle">Pioneiro em comunidade imobiliária nacional</div>
+      <div class="ref-desc">Demonstra a força de ser o primeiro a construir autoridade educacional num segmento específico. A comunidade criada antecede e supera qualquer investimento em publicidade convencional.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 11 — A CONDIÇÃO ESPECIAL
+══════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="acento-top"></div>
+  <div class="body">
+    <div class="left">
+      <div class="sm-lg">
+        <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="200" y="60" text-anchor="middle" font-family="'Cinzel','Times New Roman',serif" font-size="58" font-weight="600" fill="#C9A84C" letter-spacing="2">SMOLKA</text>
+          <text x="324" y="34" font-family="'Cinzel',serif" font-size="14" fill="#C9A84C">®</text>
+          <text x="200" y="88" text-anchor="middle" font-family="'Cinzel','Times New Roman',serif" font-size="15" font-weight="400" fill="#C9A84C" letter-spacing="9">IMÓVEIS</text>
+        </svg>
+      </div>
+      <div class="p-lbl">10 · Condição Especial · Smolka × Iusim</div>
+      <div class="p-title">Signature<br><span style="font-family:'Cormorant Garamond',serif;font-size:.72em;font-weight:300;font-style:italic;color:var(--gold)">R$6.490</span></div>
+      <div class="p-rule"></div>
+      <div class="p-body">Esta proposta não é um orçamento. É um convite. A Iusim propõe executar a produção Signature completa para um ativo da Smolka em Jurerê Internacional — e receber o pagamento apenas se o resultado justificar o investimento e confirmar a parceria.<br><br>Acreditamos antes de qualquer contrato.</div>
+      <div class="zero-risk" style="margin-top:auto">
+        <div class="zr-t">Zero risco. Convicção absoluta.</div>
+        <div class="zr-d">Produzimos primeiro. Você avalia. Pagamento apenas se o ativo e a parceria justificarem.</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="r-lbl">Entregáveis Signature — inclusos</div>
+      <div class="r-headline">Engenharia visual completa para ativos de alto VGV.</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">↗</div>
+          <div>
+            <div class="step-t">Vídeo principal 90–120s · Golden Hour ou Blue Hour</div>
+            <div class="step-d">Captação no horário de luz ideal para valorização extrema da arquitetura. Alcance dinâmico que preserva texturas, volumes e a relação do ativo com o entorno.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">◈</div>
+          <div>
+            <div class="step-t">Engenharia de voo complexa · drone externo + fly-through interno</div>
+            <div class="step-d">Operação aérea focada em proximidade narrativa e escala arquitetônica. Plano sequência único conectando ambientes — escala que nenhuma câmera terrestre alcança.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">◷</div>
+          <div>
+            <div class="step-t">Acervo fotográfico premium · catálogos, iPad, institucional</div>
+            <div class="step-d">Documentação completa com direção de arte e gestão de luz natural. Material para portais, impressos, apresentações institucionais e campanhas digitais.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">★</div>
+          <div>
+            <div class="step-t">3–5 cápsulas táticas · masterização multiplataforma</div>
+            <div class="step-d">Extraídas da peça principal: 9:16 para Instagram/mobile, 16:9 4K para portais e YouTube. Um dia de captação — ecossistema completo de conteúdo para toda a campanha.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--night);border:1px solid var(--gb-s);padding:clamp(10px,1.4vh,16px) clamp(14px,1.8vw,20px);display:flex;gap:clamp(12px,1.6vw,20px);align-items:flex-start;">
+        <div style="flex:1">
+          <div class="r-lbl" style="margin-bottom:6px">Extensões disponíveis</div>
+          <div style="display:flex;flex-direction:column;gap:1px;background:var(--gb)">
+            <div style="background:var(--surf);padding:5px 10px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:clamp(8px,.82vw,10px);color:var(--z3);font-weight:300">Voice-Over Institucional</span>
+              <span style="font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.06em">R$1.290</span>
+            </div>
+            <div style="background:var(--surf);padding:5px 10px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:clamp(8px,.82vw,10px);color:var(--z3);font-weight:300">Host In-Scene · corretor ou talent</span>
+              <span style="font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.06em">R$1.290–1.790</span>
+            </div>
+            <div style="background:var(--surf);padding:5px 10px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:clamp(8px,.82vw,10px);color:var(--z3);font-weight:300">Fast-Track 48h · SLA prioritário</span>
+              <span style="font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.06em">R$990</span>
+            </div>
+            <div style="background:var(--surf);padding:5px 10px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:clamp(8px,.82vw,10px);color:var(--z3);font-weight:300">Cápsulas adicionais</span>
+              <span style="font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.06em">R$690 / un.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 11 — CLOSING
+══════════════════════════════════════ -->
+<div class="slide spot dots" id="s11">
+  <div class="corners">
+    <span class="cc cc-tl">Iusim · Estratégia Visual</span>
+    <span class="cc cc-tr">Florianópolis · SC — 2026</span>
+    <span class="cc cc-bl">iusim.co</span>
+    <span class="cc cc-br">A Engenharia Visual da Liquidez</span>
+  </div>
+  <div class="inner">
+    <div class="logos-row">
+      <div class="sm-cl">
+        <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="200" y="58" text-anchor="middle"
+            font-family="'Cinzel','Times New Roman',serif"
+            font-size="55" font-weight="600" fill="#C9A84C" letter-spacing="2">SMOLKA</text>
+          <text x="320" y="33" font-family="'Cinzel',serif" font-size="13" fill="#C9A84C">®</text>
+          <text x="200" y="85" text-anchor="middle"
+            font-family="'Cinzel','Times New Roman',serif"
+            font-size="14" font-weight="400" fill="#C9A84C" letter-spacing="8">IMÓVEIS</text>
+        </svg>
+      </div>
+      <div class="dv"></div>
+      <div class="iu-cl">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1002.77 1002.77">
+          <g fill="#f5f0ea">
+            <path d="M644.05,366.59c31.02-35.5,44.68-78.28,43.79-126.17,44.01,24.58,78.66,72.44,78.66,128.33,0,46.24-23.09,92.44-63.77,125.66l.54.28c41.12-29.28,73.64-75.87,73.64-127.63,0-80.25-65.73-149.25-137.41-153.16l26.61,12.96c4.73,40.87-5.27,82.69-37.63,124.58-39.19-37.09-85.68-52.24-146.3-49.07l-8.32,21.53c48.24-3.97,91.65,6.95,138.33,42.68-14.39,14.19-23.15,21.08-38.27,28.01l-5.3,24.93c21.91-8.1,39.41-20.07,58.62-37.38,26.96,31.25,39.35,64.05,38.36,109.49-1.87,84.44-68.69,165.26-164.72,164.69-69.48-.38-119.4-38.65-150.46-93.56l-24.8-3.4c29.09,61.83,88.66,117.75,175.26,117.75,104.42,0,186.25-87.96,186.25-183.96,0-46.78-17.27-95.05-43.09-126.58h0Z"/>
+            <path d="M500.83,56.43c-100.83,0-189.24,79.48-189.24,186.7,0,44.23,16.8,86.06,43.98,121.88-30.26,32.93-45.1,77.07-43.98,129.47-46.02-24.13-81.71-71.8-81.71-128.3,0-46.9,20.23-90.44,68.66-127.12l-.22-.22c-45.03,27.94-75.55,73.04-75.55,127.09,0,75.3,56.24,143.31,132.45,155.64l6.67.92-27.41-15.65c-4.06-41.32,8.64-82.53,35.72-122.67,36.01,33.82,79.71,48.37,147.51,46.75l8.99-21.91c-44.23,5.88-90.28-5.02-138.4-41.38,16.45-15.72,23.88-20.8,37.47-28.07l5.56-24.93c-21.88,9.59-35.06,19.75-57.64,37.92-25.56-32.93-39.06-70.6-39.06-106.61,0-83.55,70.5-167.64,164.5-168.31,66.82-.48,121.94,39.16,150.75,92.66l24.8,5.71c-26.93-71.96-91.27-119.56-173.87-119.56Z"/>
+            <path d="M501.47,89.94c-82.44,0-153.95,68.25-156.81,142.11l15.4-30.04c43.7-2.86,86.98,7.02,123.69,37.28-37.09,39.44-52.24,86.06-47.76,151.03l20.71,4.76c-5.81-45.73,5.74-91.14,43.25-139.54,12.23,13.66,17.15,22.23,24.71,36.42l27.24,4.92c-10.42-24.71-21.22-39.76-36.9-57.61,29.66-26.74,68.78-38.65,105.94-38.65,88.6,0,169.36,68.25,169.36,165.96,0,60.66-34.93,120.35-94.7,153.44l-1.94,23.02c67.26-27.85,118.64-88.22,118.42-176.88-.22-100.16-82.85-187.36-187.46-187.36-49.89,0-91.49,16.04-123.76,44.62-34.33-29.69-76.47-42.9-126.99-43.67,26.93-47.95,74.5-80.5,127.98-80.5,46.36,0,87.49,21.12,125.66,66.69l.73-.35c-29.47-46.24-72.37-75.67-126.77-75.67h.01Z"/>
+            <path d="M306.29,192.09c-66.5,27.44-115.59,92.38-115.59,175.68,0,97.97,78.75,185.97,185.24,185.97,50.14,0,93.2-19.31,123.85-42.9,33.69,28.58,76.34,43.06,124.8,43.06-24.2,44.96-70.12,80.37-125.69,80.37-46.62,0-90.51-23.24-125.05-67.29l-3.02.19c28.9,42.61,65.87,69.71,126.55,69.71,79.39,0,146.33-69.99,150.02-120.29l7.56-17.18-15.79,35.16c-39.28,2.26-81.13-8.57-124.64-39.31,34.33-37.85,51.76-87.71,49.29-149.19l-21.12-6.54c7.08,43.51-2.83,94-43.54,141.09-13.85-14.16-21.44-25.03-26.23-38.58l-25.09-5.49c9.52,23.66,20.96,42.55,36.26,59.38-31.28,24.93-66.43,38.14-109.37,38.14-87.04,0-165.07-74.28-165.07-167.45,0-66.78,39.53-126.11,93.27-149.1l3.36-25.4h0Z"/>
+            <path d="M408.77,159.39c28.58-28.2,56.94-35.09,87.74-35.09,35.79,0,70.53,18.96,95.24,48.15l18.7-2.63c-31.12-38.3-66.24-56.18-109.88-56.18-38.43,0-69.87,18.87-91.81,45.76h0Z"/>
+            <path d="M715.5,279.96c25.44,32.67,27.53,62.72,24.77,93.46-3.4,37.66-20.58,67.58-43.09,89.39l2.1,16.1c35.57-29.63,52.33-67.52,52.33-109.08,0-36.45-15.88-70.34-36.11-89.87h0Z"/>
+            <path d="M287.34,458.24c-25.44-32.67-29.47-62.72-28.77-90.25,1.01-37.69,20.23-70.97,44.04-92.79l-1.34-16.2c-34.9,26.61-54.37,61.64-54.37,103.21,0,33.69,16.35,72.4,40.43,96.03h0Z"/>
+            <path d="M390.83,565.58c28.58,32.71,58.72,48.43,102.32,49.22,35.79.67,70.21-14.8,99.87-40.01-27.18,24.04-58.15,31.98-90.25,31.06-35.79-1.05-69.54-16.32-94-42.71l-17.94,2.44h0Z"/>
+          </g>
+          <text transform="translate(204.47 886.76)" font-family="Georgia,serif" font-size="220" fill="#f5f0ea" font-style="italic">Iusim</text>
+        </svg>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="cit">
+      <div class="cl">Entre a substância de um ativo</div>
+      <div class="cl">e o seu destino econômico,</div>
+      <div class="cl cl-gold">existe uma batalha silenciosa de linguagem.</div>
+    </div>
+    <div class="rule2"></div>
+    <div class="enc">É nessa batalha que a Iusim opera — ao lado da Smolka.</div>
+    <div class="contact">iusim.co &nbsp;·&nbsp; alexandre@iusim.co &nbsp;·&nbsp; (48) 99968-5129</div>
+  </div>
+  <div class="ab"></div>
+</div>
+
+</div><!-- #deck -->
+
+<!-- NAVIGATION -->
+<div id="nav">
+  <div class="dot on" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+  <div class="dot" onclick="goTo(3)"></div>
+  <div class="dot" onclick="goTo(4)"></div>
+  <div class="dot" onclick="goTo(5)"></div>
+  <div class="dot" onclick="goTo(6)"></div>
+  <div class="dot" onclick="goTo(7)"></div>
+  <div class="dot" onclick="goTo(8)"></div>
+  <div class="dot" onclick="goTo(9)"></div>
+  <div class="dot" onclick="goTo(10)"></div>
+  <div class="dot" onclick="goTo(11)"></div>
+  <span id="nlbl">1 / 12</span>
+  <div id="narr">
+    <button class="nbtn" onclick="prev()">&#8592;</button>
+    <button class="nbtn" onclick="next()">&#8594;</button>
+  </div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+const lbl    = document.getElementById('nlbl');
+let cur = 0;
+
+function goTo(n) {
+  if (n===cur) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('exit');
+  const p=cur; cur=n;
+  slides[cur].classList.add('active');
+  setTimeout(()=>slides[p].classList.remove('exit'),620);
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+  lbl.textContent=`${cur+1} / ${slides.length}`;
+}
+function next(){if(cur<slides.length-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+
+slides[0].classList.add('active');
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+  if(e.key==='f'||e.key==='F'){
+    !document.fullscreenElement?document.documentElement.requestFullscreen():document.exitFullscreen();
+  }
+  const n=parseInt(e.key);
+  if(n>=1&&n<=slides.length)goTo(n-1);
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50)dx<0?next():prev();
+});
+</script>
+</body>
+</html>
