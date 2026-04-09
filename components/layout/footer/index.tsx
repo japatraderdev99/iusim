@@ -11,11 +11,11 @@ export function Footer() {
           <div className={s.brand}>
             <p className={s.brandName}>Iusim</p>
             <div className={s.brandContact}>
-              <Link href="https://iusim.co" className={s.brandLink}>
-                iusim.co
+              <Link href="https://iusim.com" className={s.brandLink}>
+                iusim.com
               </Link>
-              <Link href="mailto:alexandre@iusim.co" className={s.brandLink}>
-                alexandre@iusim.co
+              <Link href="mailto:contato@iusim.com" className={s.brandLink}>
+                contato@iusim.com
               </Link>
             </div>
           </div>
@@ -52,17 +52,17 @@ export function Footer() {
             <p className={s.navGroupTitle}>Legal</p>
             <ul className={s.navList}>
               <li>
-                <Link href="/" className={s.navLink}>
+                <Link href="/privacidade" className={s.navLink}>
                   Política de Privacidade
                 </Link>
               </li>
               <li>
-                <Link href="/" className={s.navLink}>
+                <Link href="/termos" className={s.navLink}>
                   Termos
                 </Link>
               </li>
               <li>
-                <Link href="/" className={s.navLink}>
+                <Link href="/compliance" className={s.navLink}>
                   Compliance
                 </Link>
               </li>
