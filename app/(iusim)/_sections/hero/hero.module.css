@@ -125,7 +125,7 @@
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 4px;
-  margin-top: 40px;
+  margin-top: clamp(20px, 5vw, 40px);
 
   @media (--desktop) {
     grid-column: 9 / 13;

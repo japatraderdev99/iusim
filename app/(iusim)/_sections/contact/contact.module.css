@@ -1,7 +1,7 @@
 .root {
   background-color: var(--color-midnight);
-  padding-top: clamp(80px, 12vw, 200px);
-  padding-bottom: clamp(80px, 12vw, 200px);
+  padding-top: clamp(56px, 12vw, 200px);
+  padding-bottom: clamp(56px, 12vw, 200px);
   position: relative;
   overflow: hidden;
 }
@@ -11,7 +11,7 @@
   padding-right: var(--safe);
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 56px;
+  row-gap: clamp(36px, 8vw, 56px);
 
   @media (--desktop) {
     grid-template-columns: repeat(12, 1fr);
@@ -242,4 +242,8 @@
   pointer-events: none;
   user-select: none;
   letter-spacing: -0.04em;
+
+  @media (max-width: 799px) {
+    display: none;
+  }
 }

@@ -128,7 +128,11 @@
   flex-direction: column;
   overflow: hidden;
   transition: background-color 0.3s ease;
-  padding: clamp(28px, 3vw, 44px) clamp(20px, 2.5vw, 36px);
+  padding: 0;
+
+  @media (--desktop) {
+    padding: clamp(28px, 3vw, 44px) clamp(20px, 2.5vw, 36px);
+  }
 
   @media (--hover) {
     &:hover {
@@ -189,6 +193,11 @@
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  padding: clamp(20px, 3vw, 44px) clamp(20px, 2.5vw, 36px);
+
+  @media (--desktop) {
+    padding: 0;
+  }
 }
 
 .caseCode {
