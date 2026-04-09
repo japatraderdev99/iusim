@@ -78,6 +78,11 @@ export function Contact() {
     const vgv = data.get('vgv')?.toString() ?? ''
     const localizacao = data.get('localizacao')?.toString().trim() ?? ''
 
+    if (!(name && tipo && vgv && localizacao)) {
+      form.reportValidity()
+      return
+    }
+
     const companyPart = company ? ` da ${company}` : ''
     const message =
       `Olá! Aqui é o ${name}${companyPart}. ` +

@@ -99,7 +99,7 @@ export default function TesePage() {
             <p className={s.statsLabel}>Os dados confirmam</p>
             <ul className={s.statsGrid}>
               {STATS.map((stat) => (
-                <li key={stat.source} className={s.statCell}>
+                <li key={stat.number} className={s.statCell}>
                   <span className={s.statNumber}>
                     {stat.number}
                     <span className={s.statSuffix}>{stat.suffix}</span>

@@ -25,6 +25,14 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape' && menuOpen) setMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
+
   return (
     <header ref={headerRef} className={cn(s.root, scrolled && s.isScrolled)}>
       <div className={s.inner}>
