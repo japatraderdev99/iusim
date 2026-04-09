@@ -244,11 +244,12 @@
 
   /* Mobile: taller and more opaque — video is portrait, needs stronger blend */
   @media (max-width: 799px) {
-    height: 220px;
+    height: 280px;
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(19, 19, 19, 0.65) 45%,
+      rgba(19, 19, 19, 0.5) 35%,
+      rgba(19, 19, 19, 0.85) 65%,
       rgba(19, 19, 19, 1) 100%
     );
   }

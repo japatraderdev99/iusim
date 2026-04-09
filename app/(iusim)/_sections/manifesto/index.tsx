@@ -96,18 +96,21 @@ export function Manifesto() {
         <div className={s.teaserBlock}>
           <div className={s.teaserText}>
             <p className={s.teaserLead}>
-              No mercado imobiliário de alto padrão,
-              <br />a percepção de valor precede a negociação.
+              Percepção não é ornamento.
+              <br />
+              <em>É engrenagem.</em>
             </p>
             <p className={s.teaserBody}>
-              Ativos singulares não possuem comparáveis de mercado. A imagem não
-              documenta o imóvel — ela participa da formação do seu valor na
-              mente de quem o encontra.
+              O manifesto fundador da Iusim expõe a tese que antecede cada
+              operação — e por que, no mercado de ativos singulares, a maneira
+              como algo é apresentado altera concretamente o seu valor.
             </p>
           </div>
 
           <div className={s.teaserRight}>
-            <p className={s.teaserClose}>A Iusim opera nessa lacuna.</p>
+            <p className={s.teaserClose}>
+              Uma leitura para quem leva patrimônio a sério.
+            </p>
             <Link href="/manifesto" className={s.manifestoLink}>
               Ler o Manifesto
               <span className={s.manifestoArrow} aria-hidden="true">

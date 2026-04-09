@@ -35,6 +35,7 @@ function getManifesto() {
     .replace(
       /<!--\s*IMAGEM\s+([\w.-]+)[^>]*-->/g,
       (_match: string, filename: string) => {
+        if (filename === 'cover.jpg') return ''
         const src = IMAGE_MAP[filename]
         return src ? `\n![](${src})\n` : ''
       }

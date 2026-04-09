@@ -1,7 +1,7 @@
 .root {
   background-color: var(--color-midnight-soft);
-  padding-top: clamp(80px, 10vw, 160px);
-  padding-bottom: clamp(80px, 10vw, 160px);
+  padding-top: clamp(56px, 10vw, 160px);
+  padding-bottom: clamp(56px, 10vw, 160px);
 }
 
 .inner {
